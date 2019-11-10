@@ -78,7 +78,7 @@ package Flaschenzug_V3
       Placement(visible = true, transformation(origin = {2, -2}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {86, 0}, extent = {{-8, -8}, {8, 8}}, rotation = 90)));
     /////////////////////////////////////////////////
   equation
-    Port_Motor.F =  F_z;
+    Port_Motor.F = F_z;
     Port_Motor.s = sin(time);
     der(v) = a;
     der(Port_Motor.s) = v;
@@ -130,25 +130,24 @@ package Flaschenzug_V3
       Placement(visible = true, transformation(origin = {0, 26}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {0, 30}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
     /////////////////////////////////////////////////////////
   equation
-    F_g =  m * g;
+    F_g = m * g;
     PortMasse.F = -(F_g + F_t);
     PortMasse.s = s_masse;
     der(v) = a;
     der(s_masse) = v;
- if a > 0 then
+    if a > 0 then
       F_t = m * a;
     else
       F_t = m * a;
-    end if
-////////////////////////////////////////////////////////
-    annotation(
+    end if annotation(
       Icon(graphics = {Polygon(origin = {0, -20}, fillColor = {154, 154, 154}, fillPattern = FillPattern.Solid, points = {{-40, 40}, {40, 40}, {60, -40}, {-60, -40}, {-40, 40}}), Text(origin = {1, -16}, extent = {{-29, 22}, {29, -22}}, textString = "m")}, coordinateSystem(initialScale = 0.1)),
       experiment(StartTime = 0, StopTime = 1, Tolerance = 1e-6, Interval = 0.002),
-  __OpenModelica_simulationFlags(lv = "LOG_STATS", outputFormat = "mat", s = "dassl"));
-  annotation(
+      __OpenModelica_simulationFlags(lv = "LOG_STATS", outputFormat = "mat", s = "dassl"));
+////////////////////////////////////////////////////////
+    annotation(
       experiment(StartTime = 0, StopTime = 1, Tolerance = 1e-6, Interval = 0.002),
       __OpenModelica_simulationFlags(lv = "LOG_STATS", outputFormat = "mat", s = "dassl"));
-      end Masse;
+  end Masse;
 
   model Flaschenzugsystem
     Flaschenzug_V3.Masse masse1 annotation(
@@ -282,4 +281,40 @@ package Flaschenzug_V3
       experiment(StartTime = 0, StopTime = 10, Tolerance = 1e-6, Interval = 0.02),
       __OpenModelica_simulationFlags(lv = "LOG_STATS", outputFormat = "mat", s = "dassl"));
   end Test_3Rollen;
+
+  class Getriebe
+    Real i = 20;  //Übersetzung
+    Real n_M;     //Drehzahl Motor
+    Real n_ab;    //Drehzahl nach Getriebe
+    Real T_ab;    //Moment nach Getriebe
+    Real T_M;     //Moment Motor
+  
+  equation
+  
+    i = n_M / n_ab;
+    i = T_ab / T_M;
+    
+    annotation(
+      Icon(graphics = {Ellipse(origin = {-18, -14}, fillPattern = FillPattern.Solid, extent = {{-16, 16}, {16, -16}}, endAngle = 360), Ellipse(origin = {-18, -14}, fillColor = {255, 255, 255}, fillPattern = FillPattern.Solid, extent = {{-3, 3}, {3, -3}}, endAngle = 360), Rectangle(origin = {-16, 3}, fillPattern = FillPattern.Solid, extent = {{-4, -2}, {0, 4}}), Rectangle(origin = {-16, -33}, fillPattern = FillPattern.Solid, extent = {{-4, -2}, {0, 4}}), Rectangle(origin = {1, -12}, rotation = 90, fillPattern = FillPattern.Solid, extent = {{-4, -2}, {0, 4}}), Rectangle(origin = {-35, -12}, rotation = 90, fillPattern = FillPattern.Solid, extent = {{-4, -2}, {0, 4}}), Rectangle(origin = {-25, 2}, rotation = 30, fillPattern = FillPattern.Solid, extent = {{-4, -2}, {0, 4}}), Rectangle(origin = {-32, -4}, rotation = 60, fillPattern = FillPattern.Solid, extent = {{-4, -2}, {0, 4}}), Rectangle(origin = {-34, -20}, rotation = 120, fillPattern = FillPattern.Solid, extent = {{-4, -2}, {0, 4}}), Rectangle(origin = {-6, -30}, rotation = 30, fillPattern = FillPattern.Solid, extent = {{-4, -2}, {0, 4}}), Rectangle(origin = {-29, -28}, rotation = 150, fillPattern = FillPattern.Solid, extent = {{-4, -2}, {0, 4}}), Rectangle(origin = {-10, 4}, rotation = 150, fillPattern = FillPattern.Solid, extent = {{-4, -2}, {0, 4}}), Rectangle(origin = {-2, -2}, rotation = 120, fillPattern = FillPattern.Solid, extent = {{-4, -2}, {0, 4}}), Rectangle(origin = {0, -22}, rotation = 60, fillPattern = FillPattern.Solid, extent = {{-4, -2}, {0, 4}}), Rectangle(origin = {7, -2}, rotation = 150, fillPattern = FillPattern.Solid, extent = {{-4, -2}, {0, 4}}), Rectangle(origin = {1.77636e-15, 6}, rotation = 120, fillPattern = FillPattern.Solid, extent = {{-4, -2}, {0, 4}}), Ellipse(origin = {20, 14}, fillPattern = FillPattern.Solid, extent = {{-20, 20}, {20, -20}}, endAngle = 360), Rectangle(origin = {41, 4}, rotation = 60, fillPattern = FillPattern.Solid, extent = {{-4, -2}, {0, 4}}), Rectangle(origin = {34, -4}, rotation = 30, fillPattern = FillPattern.Solid, extent = {{-4, -2}, {0, 4}}), Rectangle(origin = {-1, 16}, rotation = 90, fillPattern = FillPattern.Solid, extent = {{-4, -2}, {0, 4}}), Rectangle(origin = {43, 16}, rotation = 90, fillPattern = FillPattern.Solid, extent = {{-4, -2}, {0, 4}}), Rectangle(origin = {22, -9}, fillPattern = FillPattern.Solid, extent = {{-4, -2}, {0, 4}}), Ellipse(origin = {20, 14}, fillColor = {255, 255, 255}, fillPattern = FillPattern.Solid, extent = {{-3, 3}, {3, -3}}, endAngle = 360), Rectangle(origin = {38, 28}, rotation = 120, fillPattern = FillPattern.Solid, extent = {{-4, -2}, {0, 4}}), Rectangle(origin = {2, 26}, rotation = 60, fillPattern = FillPattern.Solid, extent = {{-4, -2}, {0, 4}}), Rectangle(origin = {43, 45}, rotation = 150, fillPattern = FillPattern.Solid, extent = {{2, 14}, {6, 20}}), Rectangle(origin = {11, 34}, rotation = 30, fillPattern = FillPattern.Solid, extent = {{-4, -2}, {0, 4}}), Rectangle(origin = {22, 35}, fillPattern = FillPattern.Solid, extent = {{-4, -2}, {0, 4}})}));
+  end Getriebe;
+
+  class Seilwinde
+    Real M_SW;        //Moment vom Getriebe
+    Real F_SW;        //Kraft vom Seil
+    Real D_SW = 0.1;  //Durchmesser Seilwinde
+    Real n_SW;        //Drehzahl vom Getriebe
+    Real s_SW;        //Weg vom Seil
+    Real U_SW;        //Umfang Seilwinde
+    Real AnzU;        //Anzahl der Umdrehungen
+  
+  equation
+    M_SW = F_SW * (D_SW / 2);   //Moment = Kraft * Hebelarm
+    U_SW = 3.14 * D_SW;         //Berechnung Umfang der Seilwinde
+    AnzU = n_SW * time;         //Anzahl der Umdrehungen = Drehzahl * Zeit
+    s_SW = AnzU * U_SW;         //Weg vom Seil = Anzahl der Umdrehungen * Umfang der Seilwinde
+    
+  
+    annotation(
+      Icon(graphics = {Rectangle(origin = {-63, 4}, fillPattern = FillPattern.Solid, extent = {{-3, 36}, {3, -44}}), Rectangle(origin = {63, 4}, fillPattern = FillPattern.Solid, extent = {{-3, 36}, {3, -44}}), Rectangle(origin = {29, 64}, fillPattern = FillPattern.Solid, extent = {{-89, -36}, {31, -44}}), Rectangle(origin = {29, 16}, fillPattern = FillPattern.Solid, extent = {{-89, -36}, {31, -44}}), Rectangle(origin = {7, -32}, rotation = -75, fillPattern = FillPattern.Solid, extent = {{-79, -40}, {-9, -44}}), Rectangle(origin = {19, -32}, rotation = -75, fillPattern = FillPattern.Solid, extent = {{-79, -40}, {-9, -44}}), Rectangle(origin = {31, -32}, rotation = -75, fillPattern = FillPattern.Solid, extent = {{-79, -40}, {-9, -44}}), Rectangle(origin = {43, -32}, rotation = -75, fillPattern = FillPattern.Solid, extent = {{-79, -40}, {-9, -44}}), Rectangle(origin = {55, -32}, rotation = -75, fillPattern = FillPattern.Solid, extent = {{-79, -40}, {-9, -44}}), Rectangle(origin = {67, -32}, rotation = -75, fillPattern = FillPattern.Solid, extent = {{-79, -40}, {-9, -44}}), Rectangle(origin = {-7, 44}, rotation = 90, fillPattern = FillPattern.Solid, extent = {{-79, -40}, {37, -44}})}));
+  end Seilwinde;
 end Flaschenzug_V3;
