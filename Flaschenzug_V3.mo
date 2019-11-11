@@ -183,7 +183,7 @@ package Flaschenzug_V3
     F_g = m * g;
     port_rechts.F = port_links.F;
     port_oben.F = port_rechts.F + port_links.F + port_unten.F + F_g;
-    port_links.s = port_rechts.s;
+    port_links.s = -port_rechts.s;
     port_oben.s = port_unten.s;
 /* annotation(
       Icon(graphics = {Ellipse(fillColor = {85, 85, 255}, fillPattern = FillPattern.Solid, extent = {{-80, 80}, {80, -80}}, endAngle = 360), Text(origin = {1, 6}, extent = {{-35, 32}, {35, -32}}, textString = "Rolle")}));
@@ -236,7 +236,7 @@ package Flaschenzug_V3
     F_g = m * g;
     port_rechts.F = port_links.F;
     port_rechts.F + port_links.F + port_oben.F = port_unten.F;
-    port_rechts.s / 2 = port_unten.s;
+    (port_rechts.s + port_links.s) / 2 = port_unten.s;
     //port_links.s=....!
     
 //  port_oben.F = port_unten.F;
