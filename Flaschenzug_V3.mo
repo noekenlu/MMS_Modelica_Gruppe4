@@ -98,8 +98,10 @@ package Flaschenzug_V3
     Port_Motor.F = F_z;
     der(v) = a;
     der(Port_Motor.s) = v;
-    Port_Motor.s = sin(time);
-//Port_Motor.s=12;
+    //Port_Motor.s = sin(time);
+    //Port_Motor.s=12;
+    //Port_Motor.s= 0.68*atan(2*time);
+      Port_Motor.s = 3*(sin(0.1*time))^2;
 ////////////////////////////////////////////////
     annotation(
       Icon(coordinateSystem(initialScale = 0.1), graphics = {Rectangle(origin = {0, 27}, fillColor = {255, 85, 0}, fillPattern = FillPattern.Solid, extent = {{-40, 3}, {40, -3}}), Polygon(origin = {52, 0}, fillColor = {255, 85, 0}, fillPattern = FillPattern.Solid, points = {{-8, 30}, {-8, -30}, {-2, -30}, {8, -20}, {8, 20}, {-2, 30}, {-8, 30}}), Rectangle(origin = {104, -1}, fillColor = {255, 85, 0}, fillPattern = FillPattern.Solid, extent = {{-40, 5}, {-26, -3}}), Polygon(origin = {-52, 0}, rotation = 180, fillColor = {255, 85, 0}, fillPattern = FillPattern.Solid, points = {{-8, 30}, {-8, -30}, {-2, -30}, {8, -20}, {8, 20}, {-2, 30}, {-8, 30}}), Rectangle(origin = {0, -27}, fillColor = {255, 85, 0}, fillPattern = FillPattern.Solid, extent = {{-40, 3}, {40, -3}}), Polygon(origin = {0, -42}, rotation = 90, fillColor = {255, 85, 0}, fillPattern = FillPattern.Solid, points = {{-8, 30}, {-8, -30}, {-2, -30}, {8, -20}, {8, 20}, {-2, 30}, {-8, 30}}), Rectangle(origin = {2, -47}, fillColor = {255, 85, 0}, fillPattern = FillPattern.Solid, extent = {{-52, 3}, {50, -3}}), Text(origin = { 4, 6}, extent = {{20, 62}, {-30, -72}}, textString = "TEST")}));
