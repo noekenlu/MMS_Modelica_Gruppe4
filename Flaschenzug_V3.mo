@@ -79,7 +79,7 @@ package Flaschenzug_V3
     /////////////////////////////////////////////////
   equation
     U_a = 48 * sin(time);
-  //Hier eventuell stattdessen aus PWM auslesen
+//Hier eventuell stattdessen aus PWM auslesen
     M_e = kt * I_a;
     U_g = ke * n;
     M_e = M_L;
@@ -90,7 +90,7 @@ package Flaschenzug_V3
     M_L = -F_z * r;
     P = M_L * 2 * pi * n;
     P = U * I;
-  ////////////////////////////////////////////////
+////////////////////////////////////////////////
     annotation(
       Icon(coordinateSystem(initialScale = 0.1), graphics = {Rectangle(origin = {0, 27}, fillPattern = FillPattern.Solid, extent = {{-40, 3}, {40, -3}}), Polygon(origin = {52, 0}, fillPattern = FillPattern.Solid, points = {{-8, 30}, {-8, -30}, {-2, -30}, {8, -20}, {8, 20}, {-2, 30}, {-8, 30}}), Rectangle(origin = {104, -1}, fillPattern = FillPattern.Solid, extent = {{-40, 5}, {-26, -3}}), Polygon(origin = {-52, 0}, rotation = 180, fillPattern = FillPattern.Solid, points = {{-8, 30}, {-8, -30}, {-2, -30}, {8, -20}, {8, 20}, {-2, 30}, {-8, 30}}), Rectangle(origin = {0, 17}, fillPattern = FillPattern.Solid, extent = {{-40, 3}, {40, -3}}), Rectangle(origin = {0, -5}, fillPattern = FillPattern.Solid, extent = {{-40, 3}, {40, -3}}), Rectangle(origin = {0, -17}, fillPattern = FillPattern.Solid, extent = {{-40, 3}, {40, -3}}), Rectangle(origin = {0, -27}, fillPattern = FillPattern.Solid, extent = {{-40, 3}, {40, -3}}), Rectangle(origin = {0, 5}, fillPattern = FillPattern.Solid, extent = {{-40, 3}, {40, -3}}), Polygon(origin = {0, -42}, rotation = 90, fillPattern = FillPattern.Solid, points = {{-8, 30}, {-8, -30}, {-2, -30}, {8, -20}, {8, 20}, {-2, 30}, {-8, 30}}), Rectangle(origin = {2, -47}, fillPattern = FillPattern.Solid, extent = {{-52, 3}, {50, -3}})}));
   end Motor;
@@ -124,8 +124,7 @@ package Flaschenzug_V3
     omega = 2*pi*n;
     M_e = J_tot*der(omega) + M_L;
     U_a = R_a * I_a + L_a * der(I_a) + U_g;
-    
-  ////////////////////////////////////////////////
+////////////////////////////////////////////////
     annotation(
       Icon(coordinateSystem(initialScale = 0.1), graphics = {Rectangle(origin = {-20, 41}, fillPattern = FillPattern.Solid, extent = {{-40, 3}, {40, -3}}), Polygon(origin = {32, 14}, fillPattern = FillPattern.Solid, points = {{-8, 30}, {-8, -30}, {-2, -30}, {8, -20}, {8, 20}, {-2, 30}, {-8, 30}}), Rectangle(origin = {84, 13}, fillPattern = FillPattern.Solid, extent = {{-40, 5}, {-26, -3}}), Polygon(origin = {-52, 0}, rotation = 180, fillPattern = FillPattern.Solid, points = {{12, 16}, {12, -44}, {18, -44}, {28, -34}, {28, 6}, {18, 16}, {12, 16}}), Rectangle(origin = {-20, 31}, fillPattern = FillPattern.Solid, extent = {{-40, 3}, {40, -3}}), Rectangle(origin = {-20, 9}, fillPattern = FillPattern.Solid, extent = {{-40, 3}, {40, -3}}), Rectangle(origin = {-20, -3}, fillPattern = FillPattern.Solid, extent = {{-40, 3}, {40, -3}}), Rectangle(origin = {-20, -13}, fillPattern = FillPattern.Solid, extent = {{-40, 3}, {40, -3}}), Rectangle(origin = {-20, 19}, fillPattern = FillPattern.Solid, extent = {{-40, 3}, {40, -3}}), Polygon(origin = {-20, -28}, rotation = 90, fillPattern = FillPattern.Solid, points = {{-8, 30}, {-8, -30}, {-2, -30}, {8, -20}, {8, 20}, {-2, 30}, {-8, 30}}), Rectangle(origin = {-18, -33}, fillPattern = FillPattern.Solid, extent = {{-52, 3}, {50, -3}})}));
   end EMotor;
@@ -146,20 +145,20 @@ package Flaschenzug_V3
     Port_Motor.F = F_z;
     der(v) = a;
     der(Port_Motor.s) = v;
-    //Port_Motor.s = sin(time);
-    //Port_Motor.s=12;
-    //Port_Motor.s= 0.68*atan(2*time);
+//Port_Motor.s = sin(time);
+//Port_Motor.s=12;
+//Port_Motor.s= 0.68*atan(2*time);
       Port_Motor.s = 3*(sin(0.1*time))^2;
 ////////////////////////////////////////////////
     annotation(
       Icon(coordinateSystem(initialScale = 0.1), graphics = {Rectangle(origin = {0, 27}, fillColor = {255, 85, 0}, fillPattern = FillPattern.Solid, extent = {{-40, 3}, {40, -3}}), Polygon(origin = {52, 0}, fillColor = {255, 85, 0}, fillPattern = FillPattern.Solid, points = {{-8, 30}, {-8, -30}, {-2, -30}, {8, -20}, {8, 20}, {-2, 30}, {-8, 30}}), Rectangle(origin = {104, -1}, fillColor = {255, 85, 0}, fillPattern = FillPattern.Solid, extent = {{-40, 5}, {-26, -3}}), Polygon(origin = {-52, 0}, rotation = 180, fillColor = {255, 85, 0}, fillPattern = FillPattern.Solid, points = {{-8, 30}, {-8, -30}, {-2, -30}, {8, -20}, {8, 20}, {-2, 30}, {-8, 30}}), Rectangle(origin = {0, -27}, fillColor = {255, 85, 0}, fillPattern = FillPattern.Solid, extent = {{-40, 3}, {40, -3}}), Polygon(origin = {0, -42}, rotation = 90, fillColor = {255, 85, 0}, fillPattern = FillPattern.Solid, points = {{-8, 30}, {-8, -30}, {-2, -30}, {8, -20}, {8, 20}, {-2, 30}, {-8, 30}}), Rectangle(origin = {2, -47}, fillColor = {255, 85, 0}, fillPattern = FillPattern.Solid, extent = {{-52, 3}, {50, -3}}), Text(origin = { 4, 6}, extent = {{20, 62}, {-30, -72}}, textString = "TEST")}));
   end Test_Motor;
   class Getriebe
-    parameter Real i = 20;                      //Übersetzung
+    parameter Real i = 20;                          //Übersetzung
       Flaschenzug_V3.Port_Drehmoment_und_Drehzahl Port_in annotation(
       Placement(visible = true, transformation(origin = {-72, -2}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-66, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
       Flaschenzug_V3.Port_Drehmoment_und_Drehzahl Port_out annotation(
-      Placement(visible = true, transformation(origin = {64, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {66, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));                       //Moment Motor
+      Placement(visible = true, transformation(origin = {64, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {66, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));                           //Moment Motor
   equation
   
     i = Port_in.n  / Port_out.n;
@@ -189,12 +188,11 @@ package Flaschenzug_V3
   
   equation
     M_G = F_S * (D_SW / 2);
-  //Moment = Kraft * Hebelarm
+//Moment = Kraft * Hebelarm
     v_S = omega_G * (D_SW / 2);
     omega_G = 2 * pi * n_G;
-  //Geschwindigkeit = Winkelgeschwindigkeit * Radius
+//Geschwindigkeit = Winkelgeschwindigkeit * Radius
     der(s_S) = v_S;                               //Geschwindigkeit = abgeleiteter Weg
-    
     annotation(
       Icon(graphics = {Rectangle(origin = {-61, -10}, fillPattern = FillPattern.Solid, extent = {{-3, 36}, {3, -44}}), Rectangle(origin = {65, -10}, fillPattern = FillPattern.Solid, extent = {{-3, 36}, {3, -44}}), Rectangle(origin = {31, 50}, fillPattern = FillPattern.Solid, extent = {{-89, -36}, {31, -44}}), Rectangle(origin = {31, 2}, fillPattern = FillPattern.Solid, extent = {{-89, -36}, {31, -44}}), Rectangle(origin = {9, -46}, rotation = -75, fillPattern = FillPattern.Solid, extent = {{-79, -40}, {-9, -44}}), Rectangle(origin = {21, -46}, rotation = -75, fillPattern = FillPattern.Solid, extent = {{-79, -40}, {-9, -44}}), Rectangle(origin = {33, -46}, rotation = -75, fillPattern = FillPattern.Solid, extent = {{-79, -40}, {-9, -44}}), Rectangle(origin = {45, -46}, rotation = -75, fillPattern = FillPattern.Solid, extent = {{-79, -40}, {-9, -44}}), Rectangle(origin = {57, -46}, rotation = -75, fillPattern = FillPattern.Solid, extent = {{-79, -40}, {-9, -44}}), Rectangle(origin = {69, -46}, rotation = -75, fillPattern = FillPattern.Solid, extent = {{-79, -40}, {-9, -44}}), Rectangle(origin = {-5, 30}, rotation = 90, fillPattern = FillPattern.Solid, extent = {{-79, -40}, {37, -44}})}, coordinateSystem(initialScale = 0.1)));
   end Seilwinde;
@@ -241,6 +239,39 @@ package Flaschenzug_V3
     annotation(
       Icon(coordinateSystem(initialScale = 0.1), graphics = {Ellipse(origin = {1, -1}, fillColor = {252, 252, 252}, fillPattern = FillPattern.Solid, lineThickness = 4, extent = {{-61, 61}, {59, -59}}, endAngle = 360), Rectangle(extent = {{-10, 80}, {-10, 80}}), Rectangle(extent = {{-8, 82}, {-8, 82}}), Rectangle(origin = {-4, 21}, lineColor = {255, 255, 255}, fillPattern = FillPattern.Solid, lineThickness = 1, extent = {{10, 61}, {-2, -103}}), Ellipse(origin = {1, -3}, fillPattern = FillPattern.Solid, extent = {{-21, 23}, {19, -17}}, endAngle = 360), Rectangle(origin = {-63, -31}, fillPattern = FillPattern.Solid, extent = {{-1, 31}, {1, -31}}), Rectangle(origin = {65, -31}, fillPattern = FillPattern.Solid, extent = {{-1, 31}, {-3, -31}})}));
   end Rolle_oben;
+
+  model Rolle_oben2
+    Flaschenzug_V3.Port2 port_unten annotation(
+      Placement(visible = true, transformation(origin = {-4, -56}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {0, -90}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+    Flaschenzug_V3.Port_Rolle_Seilanschluss port_links annotation(
+      Placement(visible = true, transformation(origin = {-80, 2}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-63, -63}, extent = {{-5, -5}, {5, 5}}, rotation = 0)));
+    Flaschenzug_V3.Port_Rolle_Seilanschluss port_rechts annotation(
+      Placement(visible = true, transformation(origin = {66, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {63, -65}, extent = {{-5, -5}, {5, 5}}, rotation = 0)));
+    Flaschenzug_V3.Port1 port_oben annotation(
+      Placement(visible = true, transformation(origin = {-10, 66}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {0, 82}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+    //////////////////////////////////////////////////////////////////
+    parameter Modelica.SIunits.Mass m = 0 "Masse Rolle";
+    constant Real g = Modelica.Constants.g_n "Erdbeschleunigung";
+    Modelica.SIunits.Force F_g "Gewichtskraft";
+    Modelica.SIunits.Acceleration a "Beschleunigung Rolle trans.";
+    Modelica.SIunits.Velocity v "Geschwindigkeit Rolle trans.";
+    Modelica.SIunits.Length s "Weg Rolle trans.";
+    ////////////////////////////////////////////////////////////////
+  equation
+    F_g = m * g;
+    port_rechts.F = port_links.F;
+    port_rechts.F + port_links.F + port_oben.F = -port_unten.F;
+    (port_rechts.s + port_links.s) / 2 = s;
+    s = port_oben.s;
+    s = port_unten.s;
+    der(v) = a;
+    der(s) = v;
+//////////////////////////////////////////////////////////////////
+    annotation(
+      Icon(coordinateSystem(initialScale = 0.1), graphics = {Ellipse(origin = {1, -9}, fillColor = {252, 252, 252}, fillPattern = FillPattern.Solid, lineThickness = 4, extent = {{-61, 61}, {59, -59}}, endAngle = 360), Rectangle(extent = {{-10, 80}, {-10, 80}}), Rectangle(extent = {{-8, 82}, {-8, 82}}), Rectangle(origin = {-4, 13}, lineColor = {255, 255, 255}, fillPattern = FillPattern.Solid, lineThickness = 1, extent = {{10, 61}, {-2, -103}}), Ellipse(origin = {1, -11}, fillPattern = FillPattern.Solid, extent = {{-21, 23}, {19, -17}}, endAngle = 360), Rectangle(origin = {-55, -13}, fillPattern = FillPattern.Solid, extent = {{-7, 11}, {-9, -49}}), Rectangle(origin = {63, -31}, fillPattern = FillPattern.Solid, extent = {{-1, 31}, {1, -31}}), Rectangle(origin = {31, -8}, fillPattern = FillPattern.Solid, extent = {{-1, 20}, {3, -20}}), Polygon(origin = {0, -8}, points = {{-78, -48}, {-78, -48}, {-78, -48}}), Polygon(origin = {38, 22}, fillPattern = FillPattern.Solid, points = {{-6, 6}, {-12, -10}, {0, -10}, {-6, 6}}), Polygon(origin = {38, -16}, fillPattern = FillPattern.Solid, points = {{-6, -26}, {-12, -10}, {0, -10}, {-6, -26}})}),
+      experiment(StartTime = 0, StopTime = 1, Tolerance = 1e-6, Interval = 0.002),
+      __OpenModelica_simulationFlags(lv = "LOG_STATS", outputFormat = "mat", s = "dassl"));
+  end Rolle_oben2;
 
   model Rolle_unten
     Flaschenzug_V3.Port2 port_unten annotation(
@@ -450,6 +481,210 @@ package Flaschenzug_V3
       __OpenModelica_simulationFlags(lv = "LOG_STATS", outputFormat = "mat", s = "dassl"),
       Diagram);
   end Test_4Rollen;
+
+  model Rolle_oben2_test
+    Flaschenzug_V3.Fixpoint fixpoint1 annotation(
+      Placement(visible = true, transformation(origin = {37, 89}, extent = {{-21, -21}, {21, 21}}, rotation = 0)));
+  Flaschenzug_V3.Rolle_oben2 rolle_oben21 annotation(
+      Placement(visible = true, transformation(origin = {37, 55}, extent = {{-17, -17}, {17, 17}}, rotation = 0)));
+  Flaschenzug_V3.Masse masse1(m = 10)  annotation(
+      Placement(visible = true, transformation(origin = {48, 10}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Flaschenzug_V3.Test_Motor test_Motor1 annotation(
+      Placement(visible = true, transformation(origin = {-44, 12}, extent = {{-26, -26}, {26, 26}}, rotation = 0)));
+  Flaschenzug_V3.Masse masse2(m = 10)  annotation(
+      Placement(visible = true, transformation(origin = {38, -18}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  equation
+    connect(rolle_oben21.port_unten, masse2.PortMasse) annotation(
+      Line(points = {{38, 40}, {38, -15}}, color = {255, 0, 0}));
+    connect(masse1.PortMasse, rolle_oben21.port_rechts) annotation(
+      Line(points = {{48, 14}, {48, 14}, {48, 44}, {48, 44}}, color = {0, 170, 0}));
+    connect(test_Motor1.Port_Motor, rolle_oben21.port_links) annotation(
+      Line(points = {{-22, 12}, {26, 12}, {26, 44}, {26, 44}, {26, 44}}, color = {255, 0, 0}));
+    connect(fixpoint1.portFix, rolle_oben21.port_oben) annotation(
+      Line(points = {{38, 86}, {38, 78}, {37, 78}, {37, 69}}, color = {255, 0, 0}));
+    annotation(
+      experiment(StartTime = 0, StopTime = 10, Tolerance = 1e-6, Interval = 0.02),
+      __OpenModelica_simulationFlags(lv = "LOG_STATS", outputFormat = "mat", s = "dassl"),
+      Diagram);
+  end Rolle_oben2_test;
+
+  model Test_Rollen_Mischung
+    Flaschenzug_V3.Rolle_oben2 rolle_oben21 annotation(
+      Placement(visible = true, transformation(origin = {-1, 61}, extent = {{-17, -17}, {17, 17}}, rotation = 0)));
+    Flaschenzug_V3.Test_Motor test_Motor1 annotation(
+      Placement(visible = true, transformation(origin = {-52, 12}, extent = {{-26, -26}, {26, 26}}, rotation = 0)));
+  Flaschenzug_V3.Fixpoint fixpoint1 annotation(
+      Placement(visible = true, transformation(origin = {-1, 89}, extent = {{-13, -13}, {13, 13}}, rotation = 0)));
+  Flaschenzug_V3.Fixpoint fixpoint2 annotation(
+      Placement(visible = true, transformation(origin = {4, 0}, extent = {{-12, -12}, {12, 12}}, rotation = 180)));
+  Flaschenzug_V3.Rolle_oben2 rolle_oben22 annotation(
+      Placement(visible = true, transformation(origin = {10, 26}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Flaschenzug_V3.Masse masse1 annotation(
+      Placement(visible = true, transformation(origin = {16, -30}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  equation
+    connect(fixpoint2.portFix, rolle_oben22.port_links) annotation(
+      Line(points = {{4, 1}, {4, 20.44}}, color = {255, 0, 0}));
+    connect(test_Motor1.Port_Motor, rolle_oben21.port_links) annotation(
+      Line(points = {{-30, 12}, {-12, 12}, {-12, 50}, {-12, 50}}, color = {255, 0, 0}));
+    connect(masse1.PortMasse, rolle_oben22.port_rechts) annotation(
+      Line(points = {{16, -27}, {16, 20}}, color = {0, 170, 0}));
+    connect(rolle_oben21.port_rechts, rolle_oben22.port_oben) annotation(
+      Line(points = {{9.71, 49.95}, {9.71, 33.95}}, color = {255, 0, 0}));
+    connect(fixpoint1.portFix, rolle_oben21.port_oben) annotation(
+      Line(points = {{-1, 87.44}, {-1, 75.44}}, color = {255, 0, 0}));
+    annotation(
+      experiment(StartTime = 0, StopTime = 10, Tolerance = 1e-6, Interval = 0.02),
+      __OpenModelica_simulationFlags(lv = "LOG_STATS", outputFormat = "mat", s = "dassl"),
+      Diagram);
+  end Test_Rollen_Mischung;
+
+  model Test_Rollen_Mischung2
+    Flaschenzug_V3.Rolle_oben2 rolle_oben21 annotation(
+      Placement(visible = true, transformation(origin = {-21, 57}, extent = {{-17, -17}, {17, 17}}, rotation = 0)));
+    Flaschenzug_V3.Test_Motor test_Motor1 annotation(
+      Placement(visible = true, transformation(origin = {-60, 12}, extent = {{-26, -26}, {26, 26}}, rotation = 0)));
+    Flaschenzug_V3.Fixpoint fixpoint1 annotation(
+      Placement(visible = true, transformation(origin = {-21, 79}, extent = {{-13, -13}, {13, 13}}, rotation = 0)));
+    Flaschenzug_V3.Masse masse1 annotation(
+      Placement(visible = true, transformation(origin = {24, -64}, extent = {{-16, -16}, {16, 16}}, rotation = 0)));
+  Flaschenzug_V3.Fixpoint fixpoint2 annotation(
+      Placement(visible = true, transformation(origin = {23, 79}, extent = {{-13, -13}, {13, 13}}, rotation = 0)));
+  Flaschenzug_V3.Rolle_oben2 rolle_oben24 annotation(
+      Placement(visible = true, transformation(origin = {23, 55}, extent = {{-17, -17}, {17, 17}}, rotation = 0)));
+  Flaschenzug_V3.Rolle_unten rolle_unten1 annotation(
+      Placement(visible = true, transformation(origin = {1, -7}, extent = {{-17, -17}, {17, 17}}, rotation = 0)));
+  Flaschenzug_V3.Rolle_unten rolle_unten2 annotation(
+      Placement(visible = true, transformation(origin = {45, -9}, extent = {{-17, -17}, {17, 17}}, rotation = 0)));
+  Flaschenzug_V3.Fixpoint fixpoint3 annotation(
+      Placement(visible = true, transformation(origin = {55, 79}, extent = {{-13, -13}, {13, 13}}, rotation = 0)));
+  equation
+    connect(rolle_unten1.port_unten, masse1.PortMasse) annotation(
+      Line(points = {{1, -22.3}, {1, -32.3}, {24, -32.3}, {24, -59}}, color = {255, 0, 0}));
+    connect(rolle_unten2.port_unten, masse1.PortMasse) annotation(
+      Line(points = {{45, -24.3}, {45, -32.6}, {24, -32.6}, {24, -59}}, color = {255, 0, 0}));
+    connect(test_Motor1.Port_Motor, rolle_oben21.port_links) annotation(
+      Line(points = {{-38, 12}, {-31.64, 12}, {-31.64, 46}}, color = {255, 0, 0}));
+    connect(rolle_unten2.port_rechts, fixpoint3.portFix) annotation(
+      Line(points = {{55.71, 0.35}, {55.21, 0.35}, {55.21, 0.35}, {54.71, 0.35}, {54.71, 37.85}, {54.71, 37.85}, {54.71, 77.35}}, color = {255, 0, 0}));
+    connect(rolle_oben24.port_rechts, rolle_unten2.port_links) annotation(
+      Line(points = {{33.71, 43.95}, {33.71, -0.0500008}}, color = {255, 0, 0}));
+    connect(rolle_unten1.port_rechts, rolle_oben24.port_links) annotation(
+      Line(points = {{11.71, 2.35}, {11.71, 44.35}}, color = {255, 0, 0}));
+    connect(rolle_oben21.port_rechts, rolle_unten1.port_links) annotation(
+      Line(points = {{-10.29, 45.95}, {-10.29, 1.95}}, color = {255, 0, 0}));
+    connect(fixpoint2.portFix, rolle_oben24.port_oben) annotation(
+      Line(points = {{23, 77.44}, {23, 69.44}}, color = {255, 0, 0}));
+    connect(fixpoint1.portFix, rolle_oben21.port_oben) annotation(
+      Line(points = {{-21, 77.44}, {-21, 71}}, color = {255, 0, 0}));
+    annotation(
+      experiment(StartTime = 0, StopTime = 10, Tolerance = 1e-6, Interval = 0.02),
+      __OpenModelica_simulationFlags(lv = "LOG_STATS", outputFormat = "mat", s = "dassl"),
+      Diagram);
+  end Test_Rollen_Mischung2;
+
+  model Test_Rollen_Mischung3
+    Flaschenzug_V3.Rolle_oben2 rolle_oben21 annotation(
+      Placement(visible = true, transformation(origin = {-19, 61}, extent = {{-17, -17}, {17, 17}}, rotation = 0)));
+    Flaschenzug_V3.Test_Motor test_Motor1 annotation(
+      Placement(visible = true, transformation(origin = {52, -78}, extent = {{26, -26}, {-26, 26}}, rotation = 0)));
+    Flaschenzug_V3.Fixpoint fixpoint1 annotation(
+      Placement(visible = true, transformation(origin = {-19, 89}, extent = {{-13, -13}, {13, 13}}, rotation = 0)));
+    Flaschenzug_V3.Fixpoint fixpoint2 annotation(
+      Placement(visible = true, transformation(origin = {-20, -22}, extent = {{-12, -12}, {12, 12}}, rotation = 180)));
+    Flaschenzug_V3.Masse masse1 annotation(
+      Placement(visible = true, transformation(origin = {-30, 26}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Flaschenzug_V3.Fixpoint fixpoint3 annotation(
+      Placement(visible = true, transformation(origin = {-8, -88}, extent = {{-12, -12}, {12, 12}}, rotation = 180)));
+  Flaschenzug_V3.Rolle_oben2 rolle_oben22 annotation(
+      Placement(visible = true, transformation(origin = {-8, 10}, extent = {{-18, -18}, {18, 18}}, rotation = 0)));
+  Flaschenzug_V3.Rolle_oben2 rolle_oben23 annotation(
+      Placement(visible = true, transformation(origin = {3, -47}, extent = {{-17, -17}, {17, 17}}, rotation = 0)));
+  equation
+    connect(rolle_oben21.port_links, masse1.PortMasse) annotation(
+      Line(points = {{-30, 50}, {-30, 29}}, color = {255, 0, 0}));
+    connect(test_Motor1.Port_Motor, rolle_oben23.port_rechts) annotation(
+      Line(points = {{30, -78}, {14, -78}, {14, -58}, {14, -58}}, color = {255, 0, 0}));
+    connect(fixpoint3.portFix, rolle_oben23.port_links) annotation(
+      Line(points = {{-8, -86}, {-8, -86}, {-8, -58}, {-8, -58}}, color = {255, 0, 0}));
+    connect(fixpoint2.portFix, rolle_oben22.port_links) annotation(
+      Line(points = {{-20, -20}, {-20, -20}, {-20, -2}, {-20, -2}}, color = {255, 0, 0}));
+    connect(rolle_oben22.port_rechts, rolle_oben23.port_oben) annotation(
+      Line(points = {{3, -2}, {3, -33}}, color = {255, 0, 0}));
+    connect(rolle_oben21.port_rechts, rolle_oben22.port_oben) annotation(
+      Line(points = {{-8, 50}, {-8, 25}}, color = {255, 0, 0}));
+    connect(fixpoint1.portFix, rolle_oben21.port_oben) annotation(
+      Line(points = {{-19, 87.44}, {-19, 75.44}}, color = {255, 0, 0}));
+    annotation(
+      experiment(StartTime = 0, StopTime = 10, Tolerance = 1e-6, Interval = 0.02),
+      __OpenModelica_simulationFlags(lv = "LOG_STATS", outputFormat = "mat", s = "dassl"),
+      Diagram);
+  end Test_Rollen_Mischung3;
+
+  model Test_Rollen_Mischung4
+    Flaschenzug_V3.Rolle_oben2 rolle_oben21 annotation(
+      Placement(visible = true, transformation(origin = {-50, 66}, extent = {{-16, -16}, {16, 16}}, rotation = 0)));
+    Flaschenzug_V3.Fixpoint fixpoint1 annotation(
+      Placement(visible = true, transformation(origin = {-50, 88}, extent = {{-14, -14}, {14, 14}}, rotation = 0)));
+    Flaschenzug_V3.Masse masse1 annotation(
+      Placement(visible = true, transformation(origin = {10, -64}, extent = {{-16, -16}, {16, 16}}, rotation = 0)));
+  Test_Motor test_Motor1 annotation(
+      Placement(visible = true, transformation(origin = {-82, 10}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
+  Flaschenzug_V3.Rolle_oben2 rolle_oben22 annotation(
+      Placement(visible = true, transformation(origin = {-10, 66}, extent = {{-16, -16}, {16, 16}}, rotation = 0)));
+  Flaschenzug_V3.Fixpoint fixpoint2 annotation(
+      Placement(visible = true, transformation(origin = {-10, 88}, extent = {{-14, -14}, {14, 14}}, rotation = 0)));
+  Flaschenzug_V3.Rolle_oben2 rolle_oben23 annotation(
+      Placement(visible = true, transformation(origin = {30, 66}, extent = {{-16, -16}, {16, 16}}, rotation = 0)));
+  Flaschenzug_V3.Fixpoint fixpoint3 annotation(
+      Placement(visible = true, transformation(origin = {30, 88}, extent = {{-14, -14}, {14, 14}}, rotation = 0)));
+  Flaschenzug_V3.Rolle_oben2 rolle_oben24 annotation(
+      Placement(visible = true, transformation(origin = {70, 66}, extent = {{-16, -16}, {16, 16}}, rotation = 0)));
+  Flaschenzug_V3.Fixpoint fixpoint4 annotation(
+      Placement(visible = true, transformation(origin = {70, 88}, extent = {{-14, -14}, {14, 14}}, rotation = 0)));
+  Flaschenzug_V3.Rolle_unten rolle_unten1 annotation(
+      Placement(visible = true, transformation(origin = {-30, -8}, extent = {{-16, -16}, {16, 16}}, rotation = 0)));
+  Flaschenzug_V3.Rolle_unten rolle_unten2 annotation(
+      Placement(visible = true, transformation(origin = {10, -8}, extent = {{-16, -16}, {16, 16}}, rotation = 0)));
+  Flaschenzug_V3.Rolle_unten rolle_unten3 annotation(
+      Placement(visible = true, transformation(origin = {50, -8}, extent = {{-16, -16}, {16, 16}}, rotation = 0)));
+  Flaschenzug_V3.Fixpoint fixpoint5 annotation(
+      Placement(visible = true, transformation(origin = {80, -60}, extent = {{-14, 14}, {14, -14}}, rotation = 0)));
+  equation
+    connect(fixpoint4.portFix, rolle_oben24.port_oben) annotation(
+      Line(points = {{70, 86}, {70, 86}, {70, 80}, {70, 80}}, color = {255, 0, 0}));
+    connect(fixpoint3.portFix, rolle_oben23.port_oben) annotation(
+      Line(points = {{30, 86}, {30, 86}, {30, 80}, {30, 80}}, color = {255, 0, 0}));
+    connect(fixpoint2.portFix, rolle_oben22.port_oben) annotation(
+      Line(points = {{-10, 86}, {-10, 86}, {-10, 80}, {-10, 80}}, color = {255, 0, 0}));
+    connect(rolle_unten3.port_unten, masse1.PortMasse) annotation(
+      Line(points = {{50, -22}, {50, -22}, {50, -40}, {10, -40}, {10, -60}, {10, -60}}, color = {255, 0, 0}));
+    connect(rolle_unten1.port_unten, masse1.PortMasse) annotation(
+      Line(points = {{-30, -22}, {-30, -22}, {-30, -40}, {10, -40}, {10, -60}, {10, -60}}, color = {255, 0, 0}));
+    connect(rolle_unten2.port_unten, masse1.PortMasse) annotation(
+      Line(points = {{10, -22}, {10, -22}, {10, -60}, {10, -60}}, color = {255, 0, 0}));
+    connect(rolle_oben24.port_rechts, fixpoint5.portFix) annotation(
+      Line(points = {{80, 56}, {80, 56}, {80, -58}, {80, -58}}, color = {255, 0, 0}));
+    connect(rolle_unten3.port_rechts, rolle_oben24.port_links) annotation(
+      Line(points = {{60, 0}, {60, 0}, {60, 56}, {60, 56}}, color = {255, 0, 0}));
+    connect(rolle_oben23.port_rechts, rolle_unten3.port_links) annotation(
+      Line(points = {{40, 56}, {40, 56}, {40, 0}, {40, 0}}, color = {255, 0, 0}));
+    connect(rolle_unten2.port_rechts, rolle_oben23.port_links) annotation(
+      Line(points = {{20, 0}, {20, 0}, {20, 56}, {20, 56}}, color = {255, 0, 0}));
+    connect(rolle_oben22.port_rechts, rolle_unten2.port_links) annotation(
+      Line(points = {{0, 56}, {0, 56}, {0, 0}, {0, 0}}, color = {255, 0, 0}));
+    connect(rolle_unten1.port_rechts, rolle_oben22.port_links) annotation(
+      Line(points = {{-20, 0}, {-20, 0}, {-20, 56}, {-20, 56}}, color = {255, 0, 0}));
+    connect(rolle_oben21.port_rechts, rolle_unten1.port_links) annotation(
+      Line(points = {{-40, 56}, {-40, 56}, {-40, 0}, {-40, 0}}, color = {255, 0, 0}));
+    connect(test_Motor1.Port_Motor, rolle_oben21.port_links) annotation(
+      Line(points = {{-64, 10}, {-60, 10}, {-60, 56}, {-60, 56}}, color = {255, 0, 0}));
+    connect(fixpoint1.portFix, rolle_oben21.port_oben) annotation(
+      Line(points = {{-50, 86.32}, {-50, 79.32}}, color = {255, 0, 0}));
+    annotation(
+      experiment(StartTime = 0, StopTime = 10, Tolerance = 1e-6, Interval = 0.02),
+      __OpenModelica_simulationFlags(lv = "LOG_STATS", outputFormat = "mat", s = "dassl"),
+      Diagram);
+  end Test_Rollen_Mischung4;
 
   model System_Test
     Flaschenzug_V3.Fixpoint fixpoint1 annotation(
