@@ -1020,7 +1020,7 @@ package Flaschenzug_V3
   model E_Motor_test1
     Flaschenzug_V3.Rolle_oben2 rolle_oben22 annotation(
       Placement(visible = true, transformation(origin = {60, 38}, extent = {{-26, -26}, {26, 26}}, rotation = 0)));
-    Flaschenzug_V3.Masse masse2(m = 1) annotation(
+    Flaschenzug_V3.Masse masse2(m = 0.1) annotation(
       Placement(visible = true, transformation(origin = {44, -2}, extent = {{-14, -14}, {14, 14}}, rotation = 0)));
     Flaschenzug_V3.Fixpoint fixpoint3 annotation(
       Placement(visible = true, transformation(origin = {60, 78}, extent = {{-22, -22}, {22, 22}}, rotation = 0)));
@@ -1050,18 +1050,26 @@ package Flaschenzug_V3
     constant Real pi = Modelica.Constants.pi "Pi";
     
     //Parameter
-    parameter Modelica.SIunits.Inductance L_a = 1                           "Ankerinduktivität";
+    /*
+    parameter Modelica.SIunits.Inductance L_a = 1.6e-3                           "Ankerinduktivität";
     parameter Modelica.SIunits.Resistance R_a = 7.19                              "Ankerwiderstand";
-    parameter Modelica.SIunits.VoltageSecond ke = 1                           "Spannungskonstante";
-    parameter Modelica.SIunits.Inertia J_tot = 1                             "resultierende Trägheit am Motor in kg/m^2";
+    parameter Modelica.SIunits.VoltageSecond ke = 79e-2                           "Spannungskonstante";
+    parameter Modelica.SIunits.Inertia J_tot = 10e-2         "resultierende Trägheit am Motor in kg/m^2";
     parameter Modelica.SIunits.Voltage U_a = 48                                   "Ankerspannung";
+    */
+    
+    parameter Modelica.SIunits.Inductance L_a = 6.2e-4                           "Ankerinduktivität";
+    parameter Modelica.SIunits.Resistance R_a = 0.62                              "Ankerwiderstand";
+    parameter Modelica.SIunits.VoltageSecond ke = 8                           "Spannungskonstante";
+    parameter Modelica.SIunits.Inertia J_tot = 2.16e-5        "resultierende Trägheit am Motor in kg/m^2";
+    parameter Modelica.SIunits.Voltage U_a = 48;
     
     //Variablen
-    Modelica.SIunits.Current I_a                                      "Ankerstrom";
+    Modelica.SIunits.Current I_a (start=1)                                  "Ankerstrom";
     Modelica.SIunits.Voltage U_g                                                  "induzierte Spannung"; 
     Modelica.SIunits.Torque M_e                                                   "elektrisches Drehmoment";
     Modelica.SIunits.Torque M_L = port_Drehmoment_und_Drehzahl1.T                 "Lastmoment in Nm";
-    Modelica.SIunits.Frequency f = port_Drehmoment_und_Drehzahl1.n                "Drehzahl in 1/s"; 
+    Modelica.SIunits.Frequency f = -port_Drehmoment_und_Drehzahl1.n                "Drehzahl in 1/s"; 
     Modelica.SIunits.Conversions.NonSIunits.AngularVelocity_rpm n                 "Drehzahl in 1/min";
     Modelica.SIunits.Frequency omega                                              "Rotorkreisfrequenz";
     Modelica.SIunits.ElectricalTorqueConstant kt                                  "Drehmomentenkonstante";
