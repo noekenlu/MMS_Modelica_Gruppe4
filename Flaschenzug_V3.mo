@@ -155,7 +155,7 @@ package Flaschenzug_V3
     f=der(Port_Motor.s)/(pi*D);
 //  Port_Motor.s = sin(time);
 //  Port_Motor.s=12;
-  //  Port_Motor.s= 0.68*atan(2*time);
+//  Port_Motor.s= 0.68*atan(2*time);
 //  Port_Motor.s = 3*(sin(0.1*time))^2;
     Port_Motor.s=1*time;
 ////////////////////////////////////////////////
@@ -163,11 +163,11 @@ package Flaschenzug_V3
       Icon(coordinateSystem(initialScale = 0.1), graphics = {Rectangle(origin = {0, 27}, fillColor = {255, 85, 0}, fillPattern = FillPattern.Solid, extent = {{-40, 3}, {40, -3}}), Polygon(origin = {52, 0}, fillColor = {255, 85, 0}, fillPattern = FillPattern.Solid, points = {{-8, 30}, {-8, -30}, {-2, -30}, {8, -20}, {8, 20}, {-2, 30}, {-8, 30}}), Rectangle(origin = {104, -1}, fillColor = {255, 85, 0}, fillPattern = FillPattern.Solid, extent = {{-40, 5}, {-26, -3}}), Polygon(origin = {-52, 0}, rotation = 180, fillColor = {255, 85, 0}, fillPattern = FillPattern.Solid, points = {{-8, 30}, {-8, -30}, {-2, -30}, {8, -20}, {8, 20}, {-2, 30}, {-8, 30}}), Rectangle(origin = {0, -27}, fillColor = {255, 85, 0}, fillPattern = FillPattern.Solid, extent = {{-40, 3}, {40, -3}}), Polygon(origin = {0, -42}, rotation = 90, fillColor = {255, 85, 0}, fillPattern = FillPattern.Solid, points = {{-8, 30}, {-8, -30}, {-2, -30}, {8, -20}, {8, 20}, {-2, 30}, {-8, 30}}), Rectangle(origin = {2, -47}, fillColor = {255, 85, 0}, fillPattern = FillPattern.Solid, extent = {{-52, 3}, {50, -3}}), Text(origin = { 4, 6}, extent = {{20, 62}, {-30, -72}}, textString = "TEST"), Rectangle(origin = {-38, -1}, fillColor = {255, 85, 0}, fillPattern = FillPattern.Solid, extent = {{-40, 5}, {-26, -3}})}));
   end Test_Motor;
   class Getriebe
-    parameter Real i = 20;                                  //Übersetzung
+    parameter Real i = 20;                                      //Übersetzung
       Flaschenzug_V3.Port_Drehmoment_und_Drehzahl Port_in annotation(
       Placement(visible = true, transformation(origin = {-72, -2}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-66, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
       Flaschenzug_V3.Port_Drehmoment_und_Drehzahl Port_out annotation(
-      Placement(visible = true, transformation(origin = {64, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {66, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));                                   //Moment Motor
+      Placement(visible = true, transformation(origin = {64, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {66, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));                                       //Moment Motor
   equation
   
     i = Port_in.n  / Port_out.n;
@@ -1016,4 +1016,69 @@ package Flaschenzug_V3
       __OpenModelica_simulationFlags(lv = "LOG_STATS", outputFormat = "mat", s = "dassl"),
       Diagram);
   end Getriebe_test2;
+
+  model E_Motor_test1
+    Flaschenzug_V3.Rolle_oben2 rolle_oben22 annotation(
+      Placement(visible = true, transformation(origin = {60, 38}, extent = {{-26, -26}, {26, 26}}, rotation = 0)));
+    Flaschenzug_V3.Masse masse2(m = 1) annotation(
+      Placement(visible = true, transformation(origin = {44, -2}, extent = {{-14, -14}, {14, 14}}, rotation = 0)));
+    Flaschenzug_V3.Fixpoint fixpoint3 annotation(
+      Placement(visible = true, transformation(origin = {60, 78}, extent = {{-22, -22}, {22, 22}}, rotation = 0)));
+    Flaschenzug_V3.Seilwinde seilwinde1 annotation(
+      Placement(visible = true, transformation(origin = {66, -72}, extent = {{-24, -24}, {24, 24}}, rotation = 0)));
+  Flaschenzug_V3.EMotor2 eMotor21 annotation(
+      Placement(visible = true, transformation(origin = {-45, -79}, extent = {{-25, -25}, {25, 25}}, rotation = 0)));
+  equation
+    connect(eMotor21.port_Drehmoment_und_Drehzahl1, seilwinde1.port_T_n) annotation(
+      Line(points = {{-30, -76}, {48, -76}, {48, -76}, {50, -76}}, color = {0, 85, 255}));
+    connect(seilwinde1.port_F_s, rolle_oben22.port_rechts) annotation(
+      Line(points = {{76, -54}, {78, -54}, {78, 22}, {76, 22}}, color = {255, 0, 0}));
+    connect(rolle_oben22.port_links, masse2.PortMasse) annotation(
+      Line(points = {{44, 22}, {44, 22}, {44, 2}, {44, 2}}, color = {255, 0, 0}));
+    connect(fixpoint3.portFix, rolle_oben22.port_oben) annotation(
+      Line(points = {{60, 76}, {60, 76}, {60, 60}, {60, 60}}, color = {255, 0, 0}));
+    annotation(
+      experiment(StartTime = 0, StopTime = 10, Tolerance = 1e-6, Interval = 0.02),
+      __OpenModelica_simulationFlags(lv = "LOG_STATS", outputFormat = "mat", s = "dassl"),
+      Diagram);
+  end E_Motor_test1;
+
+  model EMotor2
+    //////////////////////////////////////////////////
+     //Konstanten
+    constant Real g = Modelica.Constants.g_n "Erdbeschleunigung";
+    constant Real pi = Modelica.Constants.pi "Pi";
+    
+    //Parameter
+    parameter Modelica.SIunits.Inductance L_a = 1                           "Ankerinduktivität";
+    parameter Modelica.SIunits.Resistance R_a = 7.19                              "Ankerwiderstand";
+    parameter Modelica.SIunits.VoltageSecond ke = 1                           "Spannungskonstante";
+    parameter Modelica.SIunits.Inertia J_tot = 1                             "resultierende Trägheit am Motor in kg/m^2";
+    parameter Modelica.SIunits.Voltage U_a = 48                                   "Ankerspannung";
+    
+    //Variablen
+    Modelica.SIunits.Current I_a                                      "Ankerstrom";
+    Modelica.SIunits.Voltage U_g                                                  "induzierte Spannung"; 
+    Modelica.SIunits.Torque M_e                                                   "elektrisches Drehmoment";
+    Modelica.SIunits.Torque M_L = port_Drehmoment_und_Drehzahl1.T                 "Lastmoment in Nm";
+    Modelica.SIunits.Frequency f = port_Drehmoment_und_Drehzahl1.n                "Drehzahl in 1/s"; 
+    Modelica.SIunits.Conversions.NonSIunits.AngularVelocity_rpm n                 "Drehzahl in 1/min";
+    Modelica.SIunits.Frequency omega                                              "Rotorkreisfrequenz";
+    Modelica.SIunits.ElectricalTorqueConstant kt                                  "Drehmomentenkonstante";
+    Port_Drehmoment_und_Drehzahl port_Drehmoment_und_Drehzahl1 annotation(
+      Placement(visible = true, transformation(origin = {60, 14}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {60, 14}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  equation
+    n=f*60;     //in 1/min
+    omega = 2*pi*f;
+    kt = ke / (2 * pi);
+    
+    
+    U_a = R_a * I_a + L_a * der(I_a) + U_g;
+    U_g = ke * f;
+    M_e = kt * I_a;  
+    M_e = J_tot*der(omega) + M_L;
+////////////////////////////////////////////////
+    annotation(
+      Icon(coordinateSystem(initialScale = 0.1), graphics = {Rectangle(origin = {-20, 41}, fillPattern = FillPattern.Solid, extent = {{-40, 3}, {40, -3}}), Polygon(origin = {32, 14}, fillPattern = FillPattern.Solid, points = {{-8, 30}, {-8, -30}, {-2, -30}, {8, -20}, {8, 20}, {-2, 30}, {-8, 30}}), Rectangle(origin = {84, 13}, fillPattern = FillPattern.Solid, extent = {{-40, 5}, {-26, -3}}), Polygon(origin = {-52, 0}, rotation = 180, fillPattern = FillPattern.Solid, points = {{12, 16}, {12, -44}, {18, -44}, {28, -34}, {28, 6}, {18, 16}, {12, 16}}), Rectangle(origin = {-20, 31}, fillPattern = FillPattern.Solid, extent = {{-40, 3}, {40, -3}}), Rectangle(origin = {-20, 9}, fillPattern = FillPattern.Solid, extent = {{-40, 3}, {40, -3}}), Rectangle(origin = {-20, -3}, fillPattern = FillPattern.Solid, extent = {{-40, 3}, {40, -3}}), Rectangle(origin = {-20, -13}, fillPattern = FillPattern.Solid, extent = {{-40, 3}, {40, -3}}), Rectangle(origin = {-20, 19}, fillPattern = FillPattern.Solid, extent = {{-40, 3}, {40, -3}}), Polygon(origin = {-20, -28}, rotation = 90, fillPattern = FillPattern.Solid, points = {{-8, 30}, {-8, -30}, {-2, -30}, {8, -20}, {8, 20}, {-2, 30}, {-8, 30}}), Rectangle(origin = {-18, -33}, fillPattern = FillPattern.Solid, extent = {{-52, 3}, {50, -3}})}));
+  end EMotor2;
 end Flaschenzug_V3;
