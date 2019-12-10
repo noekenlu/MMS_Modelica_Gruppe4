@@ -128,12 +128,12 @@ package Flaschenzug_V3
       Icon(coordinateSystem(initialScale = 0.1), graphics = {Rectangle(origin = {-20, 41}, fillPattern = FillPattern.Solid, extent = {{-40, 3}, {40, -3}}), Polygon(origin = {32, 14}, fillPattern = FillPattern.Solid, points = {{-8, 30}, {-8, -30}, {-2, -30}, {8, -20}, {8, 20}, {-2, 30}, {-8, 30}}), Rectangle(origin = {84, 13}, fillPattern = FillPattern.Solid, extent = {{-40, 5}, {-26, -3}}), Polygon(origin = {-52, 0}, rotation = 180, fillPattern = FillPattern.Solid, points = {{12, 16}, {12, -44}, {18, -44}, {28, -34}, {28, 6}, {18, 16}, {12, 16}}), Rectangle(origin = {-20, 31}, fillPattern = FillPattern.Solid, extent = {{-40, 3}, {40, -3}}), Rectangle(origin = {-20, 9}, fillPattern = FillPattern.Solid, extent = {{-40, 3}, {40, -3}}), Rectangle(origin = {-20, -3}, fillPattern = FillPattern.Solid, extent = {{-40, 3}, {40, -3}}), Rectangle(origin = {-20, -13}, fillPattern = FillPattern.Solid, extent = {{-40, 3}, {40, -3}}), Rectangle(origin = {-20, 19}, fillPattern = FillPattern.Solid, extent = {{-40, 3}, {40, -3}}), Polygon(origin = {-20, -28}, rotation = 90, fillPattern = FillPattern.Solid, points = {{-8, 30}, {-8, -30}, {-2, -30}, {8, -20}, {8, 20}, {-2, 30}, {-8, 30}}), Rectangle(origin = {-18, -33}, fillPattern = FillPattern.Solid, extent = {{-52, 3}, {50, -3}})}));
   end EMotor;
   class Getriebe
-    parameter Real i = 20;      //Übersetzung
+    parameter Real i = 20;              //Übersetzung
     Real X;                                    
       Flaschenzug_V3.Port_Drehmoment_und_Drehzahl Port_in annotation(
       Placement(visible = true, transformation(origin = {-72, -2}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-66, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
       Flaschenzug_V3.Port_Drehmoment_und_Drehzahl Port_out annotation(
-      Placement(visible = true, transformation(origin = {64, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {66, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));                                           //Moment Motor
+      Placement(visible = true, transformation(origin = {64, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {66, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));                                                   //Moment Motor
   equation
   
   X=1/i;
@@ -664,148 +664,50 @@ package Flaschenzug_V3
   end Test_Rollen_Mischung5;
 
   model Test_Getriebe1
-    Flaschenzug_V3.Test_Motor test_Motor1(D = 0.1) annotation(
-      Placement(visible = true, transformation(origin = {-51, -75}, extent = {{29, -29}, {-29, 29}}, rotation = 0)));
-    Flaschenzug_V3.Masse masse1(m = 1) annotation(
-      Placement(visible = true, transformation(origin = {-9, 1}, extent = {{-13, -13}, {13, 13}}, rotation = 0)));
-    Flaschenzug_V3.Fixpoint fixpoint1 annotation(
-      Placement(visible = true, transformation(origin = {6, 78}, extent = {{-22, -22}, {22, 22}}, rotation = 0)));
-    Flaschenzug_V3.Seilwinde seilwinde1 annotation(
-      Placement(visible = true, transformation(origin = {66, -72}, extent = {{-24, -24}, {24, 24}}, rotation = 0)));
-    Flaschenzug_V3.Seilwinde seilwinde2 annotation(
-      Placement(visible = true, transformation(origin = {12, -42}, extent = {{-24, -24}, {24, 24}}, rotation = 0)));
-    Flaschenzug_V3.Getriebe getriebe1(i = 10) annotation(
-      Placement(visible = true, transformation(origin = {17, -75}, extent = {{-23, -23}, {23, 23}}, rotation = 0)));
-    Flaschenzug_V3.Test_Motor test_Motor2(D = 0.1) annotation(
-      Placement(visible = true, transformation(origin = {-51, -47}, extent = {{29, -29}, {-29, 29}}, rotation = 0)));
-    Flaschenzug_V3.Rolle_oben rolle_oben1 annotation(
-      Placement(visible = true, transformation(origin = {6, 44}, extent = {{-24, -24}, {24, 24}}, rotation = 0)));
-    Flaschenzug_V3.Rolle_oben rolle_oben2 annotation(
-      Placement(visible = true, transformation(origin = {62, 44}, extent = {{-24, -24}, {24, 24}}, rotation = 0)));
-    Flaschenzug_V3.Fixpoint fixpoint2 annotation(
-      Placement(visible = true, transformation(origin = {62, 78}, extent = {{-22, -22}, {22, 22}}, rotation = 0)));
-    Flaschenzug_V3.Masse masse2 annotation(
-      Placement(visible = true, transformation(origin = {47, 1}, extent = {{-13, -13}, {13, 13}}, rotation = 0)));
+  Flaschenzug_V3.Seilwinde seilwinde1 annotation(
+      Placement(visible = true, transformation(origin = {17, -53}, extent = {{-19, -19}, {19, 19}}, rotation = 0)));
+  Flaschenzug_V3.Fixpoint fixpoint5 annotation(
+      Placement(visible = true, transformation(origin = {14, 78}, extent = {{-16, -16}, {16, 16}}, rotation = 0)));
+  Flaschenzug_V3.Rolle_oben rolle_oben2 annotation(
+      Placement(visible = true, transformation(origin = {14, 48}, extent = {{-16, -16}, {16, 16}}, rotation = 0)));
+  Flaschenzug_V3.Masse masse1 annotation(
+      Placement(visible = true, transformation(origin = {4, 6}, extent = {{-14, -14}, {14, 14}}, rotation = 0)));
+  Flaschenzug_V3.Rolle_oben rolle_oben1 annotation(
+      Placement(visible = true, transformation(origin = {60, 50}, extent = {{-16, -16}, {16, 16}}, rotation = 0)));
+  Flaschenzug_V3.Fixpoint fixpoint1 annotation(
+      Placement(visible = true, transformation(origin = {60, 78}, extent = {{-16, -16}, {16, 16}}, rotation = 0)));
+  Flaschenzug_V3.Masse masse2 annotation(
+      Placement(visible = true, transformation(origin = {50, 6}, extent = {{-14, -14}, {14, 14}}, rotation = 0)));
+  Flaschenzug_V3.Seilwinde seilwinde2 annotation(
+      Placement(visible = true, transformation(origin = {63, -71}, extent = {{-19, -19}, {19, 19}}, rotation = 0)));
+  Flaschenzug_V3.Getriebe getriebe1(i = 10)  annotation(
+      Placement(visible = true, transformation(origin = {14, -74}, extent = {{-16, -16}, {16, 16}}, rotation = 0)));
+  Flaschenzug_V3.EMotor eMotor1 annotation(
+      Placement(visible = true, transformation(origin = {-60,-58}, extent = {{-18, -18}, {18, 18}}, rotation = 0)));
+  Flaschenzug_V3.EMotor eMotor2 annotation(
+      Placement(visible = true, transformation(origin = {-60, -76}, extent = {{-18, -18}, {18, 18}}, rotation = 0)));
   equation
-    connect(seilwinde2.port_trans, rolle_oben1.port_rechts) annotation(
-      Line(points = {{20, -24}, {22, -24}, {22, 28}, {22, 28}}, color = {0, 170, 0}));
-    connect(rolle_oben2.port_oben, fixpoint2.portFix) annotation(
-      Line(points = {{62, 64}, {62, 64}, {62, 76}, {62, 76}}, color = {0, 170, 0}));
-    connect(rolle_oben2.port_rechts, seilwinde1.port_trans) annotation(
-      Line(points = {{78, 28}, {76, 28}, {76, -54}, {74, -54}}, color = {255, 0, 0}));
-    connect(masse2.PortMasse, rolle_oben2.port_links) annotation(
-      Line(points = {{48, 4}, {48, 4}, {48, 28}, {46, 28}}, color = {0, 170, 0}));
-    connect(rolle_oben1.port_links, masse1.PortMasse) annotation(
-      Line(points = {{-9, 29}, {-9, 5}}, color = {255, 0, 0}));
+    connect(eMotor2.port_Drehmoment_und_Drehzahl1, getriebe1.Port_in) annotation(
+      Line(points = {{-48, -73}, {4, -73}, {4, -74}}, color = {0, 85, 255}));
+    connect(eMotor1.port_Drehmoment_und_Drehzahl1, seilwinde1.port_rot) annotation(
+      Line(points = {{-48, -55}, {4, -55}, {4, -56}}, color = {0, 85, 255}));
+    connect(getriebe1.Port_out, seilwinde2.port_rot) annotation(
+      Line(points = {{25, -74}, {49.56, -74}}, color = {0, 85, 255}));
+    connect(rolle_oben1.port_rechts, seilwinde2.port_trans) annotation(
+      Line(points = {{70.08, 39.6}, {70.08, -57.4}}, color = {255, 0, 0}));
+    connect(rolle_oben1.port_links, masse2.PortMasse) annotation(
+      Line(points = {{49.92, 39.92}, {49.92, 39.92}, {49.92, 9.92}, {49.92, 9.92}}, color = {255, 0, 0}));
     connect(fixpoint1.portFix, rolle_oben1.port_oben) annotation(
-      Line(points = {{6, 76}, {6, 64}}, color = {255, 0, 0}));
-    connect(getriebe1.Port_out, seilwinde1.port_rot) annotation(
-      Line(points = {{32, -74}, {48, -74}, {48, -76}, {50, -76}}, color = {0, 85, 255}));
-    connect(seilwinde2.port_rot, test_Motor2.port_Drehmoment_und_Drehzahl1) annotation(
-      Line(points = {{-4, -46}, {-26, -46}, {-26, -46}, {-26, -46}}, color = {0, 85, 255}));
-    connect(test_Motor2.port_Drehmoment_und_Drehzahl1, seilwinde2.port_T_n) annotation(
-      Line(points = {{-26, -46}, {-6, -46}, {-6, -46}, {-4, -46}}, color = {0, 85, 255}));
-    connect(seilwinde2.port_F_s, rolle_oben21.port_rechts) annotation(
-      Line(points = {{22, -24}, {22, -24}, {22, 22}, {22, 22}}, color = {255, 0, 0}));
-    connect(getriebe1.Port_out, seilwinde1.port_T_n) annotation(
-      Line(points = {{32, -75}, {49, -75}}, color = {0, 85, 255}));
-    connect(seilwinde1.port_F_s, rolle_oben22.port_rechts) annotation(
-      Line(points = {{75, -54}, {76, -54}, {76, 22}}, color = {255, 0, 0}));
-    connect(test_Motor1.port_Drehmoment_und_Drehzahl1, getriebe1.Port_in) annotation(
-      Line(points = {{-25, -75}, {2, -75}}, color = {0, 85, 255}));
+      Line(points = {{60, 76.08}, {60, 76.08}, {60, 64.08}, {60, 64.08}}, color = {255, 0, 0}));
+    connect(rolle_oben2.port_links, masse1.PortMasse) annotation(
+      Line(points = {{3.92, 37.92}, {3.92, 37.92}, {3.92, 9.92}, {3.92, 9.92}}, color = {255, 0, 0}));
+    connect(rolle_oben2.port_rechts, seilwinde1.port_trans) annotation(
+      Line(points = {{24.08, 37.6}, {24.08, -39.4}}, color = {255, 0, 0}));
+    connect(fixpoint5.portFix, rolle_oben2.port_oben) annotation(
+      Line(points = {{14, 76.08}, {14, 76.08}, {14, 62.08}, {14, 62.08}}, color = {255, 0, 0}));
     annotation(
       experiment(StartTime = 0, StopTime = 10, Tolerance = 1e-6, Interval = 0.02),
       __OpenModelica_simulationFlags(lv = "LOG_STATS", outputFormat = "mat", s = "dassl"),
       Diagram);
   end Test_Getriebe1;
-
-  model Test_EMotor1
-    Flaschenzug_V3.Masse masse2(m = 1) annotation(
-      Placement(visible = true, transformation(origin = {44, -2}, extent = {{-14, -14}, {14, 14}}, rotation = 0)));
-    Flaschenzug_V3.Fixpoint fixpoint3 annotation(
-      Placement(visible = true, transformation(origin = {60, 78}, extent = {{-22, -22}, {22, 22}}, rotation = 0)));
-    Flaschenzug_V3.Seilwinde seilwinde1 annotation(
-      Placement(visible = true, transformation(origin = {66, -72}, extent = {{-24, -24}, {24, 24}}, rotation = 0)));
-    Flaschenzug_V3.Getriebe getriebe1 annotation(
-      Placement(visible = true, transformation(origin = {10, -76}, extent = {{-22, -22}, {22, 22}}, rotation = 0)));
-    Flaschenzug_V3.EMotor eMotor1 annotation(
-      Placement(visible = true, transformation(origin = {-63, -79}, extent = {{-19, -19}, {19, 19}}, rotation = 0)));
-    Flaschenzug_V3.Rolle_oben rolle_oben1 annotation(
-      Placement(visible = true, transformation(origin = {60, 38}, extent = {{-26, -26}, {26, 26}}, rotation = 0)));
-  equation
-    connect(masse2.PortMasse, rolle_oben1.port_links) annotation(
-      Line(points = {{44, 2}, {44, 2}, {44, 22}, {44, 22}}, color = {0, 170, 0}));
-    connect(rolle_oben1.port_rechts, seilwinde1.port_trans) annotation(
-      Line(points = {{76, 22}, {76, 22}, {76, -54}, {74, -54}}, color = {255, 0, 0}));
-    connect(fixpoint3.portFix, rolle_oben1.port_oben) annotation(
-      Line(points = {{60, 76}, {60, 76}, {60, 60}, {60, 60}}, color = {255, 0, 0}));
-    connect(getriebe1.Port_out, seilwinde1.port_rot) annotation(
-      Line(points = {{24, -76}, {48, -76}, {48, -76}, {50, -76}}, color = {0, 85, 255}));
-    connect(eMotor1.port_Drehmoment_und_Drehzahl1, getriebe1.Port_in) annotation(
-      Line(points = {{-52, -76}, {-6, -76}, {-6, -76}, {-4, -76}}, color = {0, 85, 255}));
-    connect(getriebe1.Port_out, seilwinde1.port_T_n) annotation(
-      Line(points = {{25, -76}, {50, -76}}, color = {0, 85, 255}));
-    connect(seilwinde1.port_F_s, rolle_oben22.port_rechts) annotation(
-      Line(points = {{76, -54}, {78, -54}, {78, 22}, {76, 22}}, color = {255, 0, 0}));
-    annotation(
-      experiment(StartTime = 0, StopTime = 10, Tolerance = 1e-6, Interval = 0.02),
-      __OpenModelica_simulationFlags(lv = "LOG_STATS", outputFormat = "mat", s = "dassl"),
-      Diagram);
-  end Test_EMotor1;
-
-  model Test_EMotor2
-    Flaschenzug_V3.Masse masse1(m = 5) annotation(
-      Placement(visible = true, transformation(origin = {-10, 0}, extent = {{-14, -14}, {14, 14}}, rotation = 0)));
-    Flaschenzug_V3.Fixpoint fixpoint1 annotation(
-      Placement(visible = true, transformation(origin = {6, 78}, extent = {{-22, -22}, {22, 22}}, rotation = 0)));
-    Flaschenzug_V3.Masse masse2(m = 5) annotation(
-      Placement(visible = true, transformation(origin = {44, -2}, extent = {{-14, -14}, {14, 14}}, rotation = 0)));
-    Flaschenzug_V3.Fixpoint fixpoint3 annotation(
-      Placement(visible = true, transformation(origin = {60, 78}, extent = {{-22, -22}, {22, 22}}, rotation = 0)));
-    Flaschenzug_V3.Seilwinde seilwinde1 annotation(
-      Placement(visible = true, transformation(origin = {66, -72}, extent = {{-24, -24}, {24, 24}}, rotation = 0)));
-    Flaschenzug_V3.Seilwinde seilwinde2 annotation(
-      Placement(visible = true, transformation(origin = {12, -42}, extent = {{-24, -24}, {24, 24}}, rotation = 0)));
-    Flaschenzug_V3.Getriebe getriebe1(i = 10) annotation(
-      Placement(visible = true, transformation(origin = {11, -75}, extent = {{-23, -23}, {23, 23}}, rotation = 0)));
-    Flaschenzug_V3.Rolle_oben rolle_oben1 annotation(
-      Placement(visible = true, transformation(origin = {6, 44}, extent = {{-24, -24}, {24, 24}}, rotation = 0)));
-    Flaschenzug_V3.Rolle_oben rolle_oben2 annotation(
-      Placement(visible = true, transformation(origin = {60, 44}, extent = {{-24, -24}, {24, 24}}, rotation = 0)));
-    Flaschenzug_V3.EMotor eMotor1 annotation(
-      Placement(visible = true, transformation(origin = {-65, -49}, extent = {{-27, -27}, {27, 27}}, rotation = 0)));
-    Flaschenzug_V3.EMotor eMotor2 annotation(
-      Placement(visible = true, transformation(origin = {-65, -79}, extent = {{-27, -27}, {27, 27}}, rotation = 0)));
-  equation
-    connect(eMotor2.port_Drehmoment_und_Drehzahl1, getriebe1.Port_in) annotation(
-      Line(points = {{-49, -75}, {-6, -75}, {-6, -74}, {-4, -74}}, color = {0, 85, 255}));
-    connect(eMotor1.port_Drehmoment_und_Drehzahl1, seilwinde2.port_rot) annotation(
-      Line(points = {{-49, -45}, {-4, -45}, {-4, -46}}, color = {0, 85, 255}));
-    connect(getriebe1.Port_out, seilwinde1.port_rot) annotation(
-      Line(points = {{26, -74}, {50, -74}, {50, -76}, {50, -76}}, color = {0, 85, 255}));
-    connect(rolle_oben2.port_rechts, seilwinde1.port_trans) annotation(
-      Line(points = {{76, 28}, {74, 28}, {74, -54}, {74, -54}}, color = {255, 0, 0}));
-    connect(rolle_oben2.port_links, masse2.PortMasse) annotation(
-      Line(points = {{44, 28}, {44, 28}, {44, 2}, {44, 2}}, color = {255, 0, 0}));
-    connect(rolle_oben2.port_oben, fixpoint3.portFix) annotation(
-      Line(points = {{60, 64}, {60, 64}, {60, 76}, {60, 76}}, color = {0, 170, 0}));
-    connect(seilwinde2.port_trans, rolle_oben1.port_rechts) annotation(
-      Line(points = {{20, -24}, {22, -24}, {22, 28}, {22, 28}}, color = {0, 170, 0}));
-    connect(fixpoint1.portFix, rolle_oben1.port_oben) annotation(
-      Line(points = {{6, 76}, {6, 76}, {6, 64}, {6, 64}}, color = {255, 0, 0}));
-    connect(masse1.PortMasse, rolle_oben1.port_links) annotation(
-      Line(points = {{-10, 4}, {-10, 4}, {-10, 28}, {-10, 28}}, color = {0, 170, 0}));
-    connect(getriebe1.Port_out, seilwinde1.port_T_n) annotation(
-      Line(points = {{26, -75}, {49, -75}}, color = {0, 85, 255}));
-    connect(eMotor21.port_Drehmoment_und_Drehzahl1, seilwinde2.port_T_n) annotation(
-      Line(points = {{-50, -46}, {-6, -46}, {-6, -46}, {-4, -46}}, color = {0, 85, 255}));
-    connect(seilwinde2.port_F_s, rolle_oben21.port_rechts) annotation(
-      Line(points = {{22, -24}, {22, -24}, {22, 22}, {22, 22}}, color = {255, 0, 0}));
-    connect(seilwinde1.port_F_s, rolle_oben22.port_rechts) annotation(
-      Line(points = {{75, -54}, {76, -54}, {76, 22}}, color = {255, 0, 0}));
-    annotation(
-      experiment(StartTime = 0, StopTime = 10, Tolerance = 1e-6, Interval = 0.02),
-      __OpenModelica_simulationFlags(lv = "LOG_STATS", outputFormat = "mat", s = "dassl"),
-      Diagram);
-  end Test_EMotor2;
 end Flaschenzug_V3;
