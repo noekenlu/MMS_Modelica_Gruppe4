@@ -182,15 +182,17 @@ package Flaschenzug_V3
     constant Real g = Modelica.Constants.g_n "Erdbeschleunigung";
     Modelica.SIunits.Force F_g "Gewichtskraft";
     Modelica.SIunits.Force F_t "Trägheitskraft";
+    Modelica.SIunits.Force F_tm "Resultierende Trägheitskraft Durch trägheitsmoment";
     Modelica.SIunits.Force F_ges "Gesamtkraft durch Masse";
     Modelica.SIunits.Acceleration a "Beschleunigung Rolle trans.";
     Modelica.SIunits.Velocity v "Geschwindigkeit Rolle trans.";
     Modelica.SIunits.Length s "Weg Rolle trans.";
     ////////////////////////////////////////////////////////////////
   equation
-    F_ges = F_t + F_g;
+    F_ges = F_t + F_g +F_tm;
     F_g = m * g;
     F_t = m * a;
+    F_tm= m/2*a;
     port_rechts.F = port_links.F;
     port_rechts.F + port_links.F + port_oben.F - F_ges = -port_unten.F;
     (port_rechts.s + port_links.s) / 2 = s;
@@ -219,15 +221,17 @@ package Flaschenzug_V3
     constant Real g = Modelica.Constants.g_n "Erdbeschleunigung";
     Modelica.SIunits.Force F_g "Gewichtskraft";
     Modelica.SIunits.Force F_t "Trägheitskraft";
+    Modelica.SIunits.Force F_tm "Resultierende Trägheitskraft Durch trägheitsmoment";
     Modelica.SIunits.Force F_ges "Gesamtkraft durch Masse";
     Modelica.SIunits.Acceleration a "Beschleunigung Rolle trans.";
     Modelica.SIunits.Velocity v "Geschwindigkeit Rolle trans.";
     Modelica.SIunits.Length s "Weg Rolle trans.";
     ////////////////////////////////////////////////////////////////
   equation
-    F_ges = F_t + F_g;
+    F_ges = F_t + F_g + F_tm;
     F_g = m * g;
     F_t = m * a;
+    F_tm= m/2*a;
     port_rechts.F = port_links.F;
     port_rechts.F + port_links.F + port_oben.F - F_ges = -port_unten.F;
     (port_rechts.s + port_links.s) / 2 = s;
