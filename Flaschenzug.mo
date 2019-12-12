@@ -112,7 +112,7 @@ package Flaschenzug
               */
       parameter Modelica.SIunits.Inductance L_a = 6.2e-4 "Ankerinduktivität";
       parameter Modelica.SIunits.Resistance R_a = 0.62 "Ankerwiderstand";
-      parameter Modelica.SIunits.VoltageSecond ke = 8 "Spannungskonstante";
+      parameter Modelica.SIunits.VoltageSecond ke = 0.51 "Spannungskonstante";
       parameter Modelica.SIunits.Inertia J_tot = 2.16e-2 "resultierende Trägheit am Motor in kg/m^2";
       parameter Modelica.SIunits.Voltage U_a = 48 "Ankerspannung";
       //Variablen
@@ -754,7 +754,7 @@ package Flaschenzug
         Placement(visible = true, transformation(origin = {11, 31}, extent = {{-17, -17}, {17, 17}}, rotation = 0)));
       Modelle.Rolle_oben rolle_oben2 annotation(
         Placement(visible = true, transformation(origin = {51, 31}, extent = {{-17, -17}, {17, 17}}, rotation = 0)));
-      Modelle.Masse masse1(m = 1) annotation(
+      Modelle.Masse masse1(m = 0.5) annotation(
         Placement(visible = true, transformation(origin = {0, -14}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
       Modelle.Masse masse2(m = 6) annotation(
         Placement(visible = true, transformation(origin = {40, -14}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
