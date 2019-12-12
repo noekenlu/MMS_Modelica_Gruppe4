@@ -112,14 +112,16 @@ package Flaschenzug
               */
       parameter Modelica.SIunits.Inductance L_a = 6.2e-4 "Ankerinduktivität";
       parameter Modelica.SIunits.Resistance R_a = 0.62 "Ankerwiderstand";
-      parameter Modelica.SIunits.VoltageSecond ke = 0.51 "Spannungskonstante";
-      parameter Modelica.SIunits.Inertia J_tot = 2.16e-2 "resultierende Trägheit am Motor in kg/m^2";
+      parameter Modelica.SIunits.VoltageSecond ke = 0.48 "Spannungskonstante";
+      parameter Modelica.SIunits.Inertia J_tot = 108e-6 "resultierende Trägheit am Motor in kg*m^2";
       parameter Modelica.SIunits.Voltage U_a = 48 "Ankerspannung";
+      parameter Modelica.SIunits.RotationalDampingConstant cf = 4.5e-4 "Reibungsverlustkonstante";
       //Variablen
       Modelica.SIunits.Current I_a(start = 0) "Ankerstrom";
       Modelica.SIunits.Voltage U_g "induzierte Spannung";
       Modelica.SIunits.Torque M_e "elektrisches Drehmoment";
       Modelica.SIunits.Torque M_L = port_Drehmoment_und_Drehzahl1.T "Lastmoment in Nm";
+      Modelica.SIunits.Torque M_f "Reibungsverlustmoment in Nm";
       Modelica.SIunits.Frequency f = -port_Drehmoment_und_Drehzahl1.n "Drehzahl in 1/s";
       Modelica.SIunits.Conversions.NonSIunits.AngularVelocity_rpm n "Drehzahl in 1/min";
       Modelica.SIunits.Frequency omega "Rotorkreisfrequenz";
@@ -134,33 +136,35 @@ package Flaschenzug
       U_a = R_a * I_a + L_a * der(I_a) + U_g;
       U_g = ke * f;
       M_e = kt * I_a;
-      M_e = J_tot * der(omega) + M_L;
+      M_e = J_tot * der(omega) + M_L + M_f;
+      M_f = cf * f;
 ////////////////////////////////////////////////
       annotation(
         Icon(coordinateSystem(initialScale = 0.1), graphics = {Rectangle(origin = {-20, 41}, fillPattern = FillPattern.Solid, extent = {{-40, 3}, {40, -3}}), Polygon(origin = {32, 14}, fillPattern = FillPattern.Solid, points = {{-8, 30}, {-8, -30}, {-2, -30}, {8, -20}, {8, 20}, {-2, 30}, {-8, 30}}), Rectangle(origin = {84, 13}, fillPattern = FillPattern.Solid, extent = {{-40, 5}, {-26, -3}}), Polygon(origin = {-52, 0}, rotation = 180, fillPattern = FillPattern.Solid, points = {{12, 16}, {12, -44}, {18, -44}, {28, -34}, {28, 6}, {18, 16}, {12, 16}}), Rectangle(origin = {-20, 31}, fillPattern = FillPattern.Solid, extent = {{-40, 3}, {40, -3}}), Rectangle(origin = {-20, 9}, fillPattern = FillPattern.Solid, extent = {{-40, 3}, {40, -3}}), Rectangle(origin = {-20, -3}, fillPattern = FillPattern.Solid, extent = {{-40, 3}, {40, -3}}), Rectangle(origin = {-20, -13}, fillPattern = FillPattern.Solid, extent = {{-40, 3}, {40, -3}}), Rectangle(origin = {-20, 19}, fillPattern = FillPattern.Solid, extent = {{-40, 3}, {40, -3}}), Polygon(origin = {-20, -28}, rotation = 90, fillPattern = FillPattern.Solid, points = {{-8, 30}, {-8, -30}, {-2, -30}, {8, -20}, {8, 20}, {-2, 30}, {-8, 30}}), Rectangle(origin = {-18, -33}, fillPattern = FillPattern.Solid, extent = {{-52, 3}, {50, -3}})}));
     end EMotor;
-    class Getriebe
-      parameter Real i = 20;                          //Übersetzung
-      Real X;                                    
-        Ports.Port_Drehmoment_und_Drehzahl Port_in annotation(
-        Placement(visible = true, transformation(origin = {-72, -2}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-66, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-        Ports.Port_Drehmoment_und_Drehzahl Port_out annotation(
-        Placement(visible = true, transformation(origin = {64, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {66, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));                                                         //Moment Motor
-    equation
-    
-    X=1/i;
-    /*
-      i = Port_in.n  / Port_out.n;
-      i = Port_out.T / Port_in.T;
-      */
-      
-      Port_out.n=Port_in.n*X;
-      Port_out.T = Port_in.T*i;
-      
-      
-      annotation(
-        Icon(graphics = {Ellipse(origin = {-20, -12}, fillPattern = FillPattern.Solid, extent = {{-16, 16}, {16, -16}}, endAngle = 360), Ellipse(origin = {-20, -12}, fillColor = {255, 255, 255}, fillPattern = FillPattern.Solid, extent = {{-3, 3}, {3, -3}}, endAngle = 360), Rectangle(origin = {-18, 5}, fillPattern = FillPattern.Solid, extent = {{-4, -2}, {0, 4}}), Rectangle(origin = {-18, -31}, fillPattern = FillPattern.Solid, extent = {{-4, -2}, {0, 4}}), Rectangle(origin = {-1, -10}, rotation = 90, fillPattern = FillPattern.Solid, extent = {{-4, -2}, {0, 4}}), Rectangle(origin = {-37, -10}, rotation = 90, fillPattern = FillPattern.Solid, extent = {{-4, -2}, {0, 4}}), Rectangle(origin = {-27, 4}, rotation = 30, fillPattern = FillPattern.Solid, extent = {{-4, -2}, {0, 4}}), Rectangle(origin = {-34, -2}, rotation = 60, fillPattern = FillPattern.Solid, extent = {{-4, -2}, {0, 4}}), Rectangle(origin = {-36, -18}, rotation = 120, fillPattern = FillPattern.Solid, extent = {{-4, -2}, {0, 4}}), Rectangle(origin = {-8, -28}, rotation = 30, fillPattern = FillPattern.Solid, extent = {{-4, -2}, {0, 4}}), Rectangle(origin = {-31, -26}, rotation = 150, fillPattern = FillPattern.Solid, extent = {{-4, -2}, {0, 4}}), Rectangle(origin = {-12, 6}, rotation = 150, fillPattern = FillPattern.Solid, extent = {{-4, -2}, {0, 4}}), Rectangle(origin = {-4, 0}, rotation = 120, fillPattern = FillPattern.Solid, extent = {{-4, -2}, {0, 4}}), Rectangle(origin = {-2, -20}, rotation = 60, fillPattern = FillPattern.Solid, extent = {{-4, -2}, {0, 4}}), Rectangle(origin = {9, -12}, rotation = 150, fillPattern = FillPattern.Solid, extent = {{-4, -2}, {0, 4}}), Rectangle(origin = {2, -4}, rotation = 120, fillPattern = FillPattern.Solid, extent = {{-4, -2}, {0, 4}}), Ellipse(origin = {22, 4}, fillPattern = FillPattern.Solid, extent = {{-20, 20}, {20, -20}}, endAngle = 360), Rectangle(origin = {43, -6}, rotation = 60, fillPattern = FillPattern.Solid, extent = {{-4, -2}, {0, 4}}), Rectangle(origin = {36, -14}, rotation = 30, fillPattern = FillPattern.Solid, extent = {{-4, -2}, {0, 4}}), Rectangle(origin = {1, 6}, rotation = 90, fillPattern = FillPattern.Solid, extent = {{-4, -2}, {0, 4}}), Rectangle(origin = {45, 6}, rotation = 90, fillPattern = FillPattern.Solid, extent = {{-4, -2}, {0, 4}}), Rectangle(origin = {24, -19}, fillPattern = FillPattern.Solid, extent = {{-4, -2}, {0, 4}}), Ellipse(origin = {22, 4}, fillColor = {255, 255, 255}, fillPattern = FillPattern.Solid, extent = {{-3, 3}, {3, -3}}, endAngle = 360), Rectangle(origin = {40, 18}, rotation = 120, fillPattern = FillPattern.Solid, extent = {{-4, -2}, {0, 4}}), Rectangle(origin = {4, 16}, rotation = 60, fillPattern = FillPattern.Solid, extent = {{-4, -2}, {0, 4}}), Rectangle(origin = {45, 35}, rotation = 150, fillPattern = FillPattern.Solid, extent = {{2, 14}, {6, 20}}), Rectangle(origin = {13, 24}, rotation = 30, fillPattern = FillPattern.Solid, extent = {{-4, -2}, {0, 4}}), Rectangle(origin = {24, 25}, fillPattern = FillPattern.Solid, extent = {{-4, -2}, {0, 4}}), Rectangle(origin = {-6, 5}, lineThickness = 1, extent = {{-54, 35}, {66, -45}}), Line(origin = {-33, 28}, points = {{-11, 0}, {11, 0}}, thickness = 2), Polygon(origin = {-17, 28}, fillPattern = FillPattern.Solid, points = {{-5, 4}, {-5, -4}, {5, 0}, {-5, 4}, {-5, 4}})}, coordinateSystem(initialScale = 0.1)));
-    end Getriebe;
+class Getriebe
+  parameter Real i = 20      "Übersetzung";
+  parameter Real Wirkungsgrad = 1 "Getriebe-Wirkungsgrad";
+  Real X;                                    
+    Ports.Port_Drehmoment_und_Drehzahl Port_in annotation(
+    Placement(visible = true, transformation(origin = {-72, -2}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-66, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+    Ports.Port_Drehmoment_und_Drehzahl Port_out annotation(
+    Placement(visible = true, transformation(origin = {64, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {66, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));                                                         //Moment Motor
+equation
+
+X=1/i;
+/*
+  i = Port_in.n  / Port_out.n;
+  i = Port_out.T / Port_in.T;
+  */
+  
+  Port_out.n=Port_in.n*X;
+  Port_out.T = Port_in.T*i*Wirkungsgrad;
+  
+  
+  annotation(
+    Icon(graphics = {Ellipse(origin = {-20, -12}, fillPattern = FillPattern.Solid, extent = {{-16, 16}, {16, -16}}, endAngle = 360), Ellipse(origin = {-20, -12}, fillColor = {255, 255, 255}, fillPattern = FillPattern.Solid, extent = {{-3, 3}, {3, -3}}, endAngle = 360), Rectangle(origin = {-18, 5}, fillPattern = FillPattern.Solid, extent = {{-4, -2}, {0, 4}}), Rectangle(origin = {-18, -31}, fillPattern = FillPattern.Solid, extent = {{-4, -2}, {0, 4}}), Rectangle(origin = {-1, -10}, rotation = 90, fillPattern = FillPattern.Solid, extent = {{-4, -2}, {0, 4}}), Rectangle(origin = {-37, -10}, rotation = 90, fillPattern = FillPattern.Solid, extent = {{-4, -2}, {0, 4}}), Rectangle(origin = {-27, 4}, rotation = 30, fillPattern = FillPattern.Solid, extent = {{-4, -2}, {0, 4}}), Rectangle(origin = {-34, -2}, rotation = 60, fillPattern = FillPattern.Solid, extent = {{-4, -2}, {0, 4}}), Rectangle(origin = {-36, -18}, rotation = 120, fillPattern = FillPattern.Solid, extent = {{-4, -2}, {0, 4}}), Rectangle(origin = {-8, -28}, rotation = 30, fillPattern = FillPattern.Solid, extent = {{-4, -2}, {0, 4}}), Rectangle(origin = {-31, -26}, rotation = 150, fillPattern = FillPattern.Solid, extent = {{-4, -2}, {0, 4}}), Rectangle(origin = {-12, 6}, rotation = 150, fillPattern = FillPattern.Solid, extent = {{-4, -2}, {0, 4}}), Rectangle(origin = {-4, 0}, rotation = 120, fillPattern = FillPattern.Solid, extent = {{-4, -2}, {0, 4}}), Rectangle(origin = {-2, -20}, rotation = 60, fillPattern = FillPattern.Solid, extent = {{-4, -2}, {0, 4}}), Rectangle(origin = {9, -12}, rotation = 150, fillPattern = FillPattern.Solid, extent = {{-4, -2}, {0, 4}}), Rectangle(origin = {2, -4}, rotation = 120, fillPattern = FillPattern.Solid, extent = {{-4, -2}, {0, 4}}), Ellipse(origin = {22, 4}, fillPattern = FillPattern.Solid, extent = {{-20, 20}, {20, -20}}, endAngle = 360), Rectangle(origin = {43, -6}, rotation = 60, fillPattern = FillPattern.Solid, extent = {{-4, -2}, {0, 4}}), Rectangle(origin = {36, -14}, rotation = 30, fillPattern = FillPattern.Solid, extent = {{-4, -2}, {0, 4}}), Rectangle(origin = {1, 6}, rotation = 90, fillPattern = FillPattern.Solid, extent = {{-4, -2}, {0, 4}}), Rectangle(origin = {45, 6}, rotation = 90, fillPattern = FillPattern.Solid, extent = {{-4, -2}, {0, 4}}), Rectangle(origin = {24, -19}, fillPattern = FillPattern.Solid, extent = {{-4, -2}, {0, 4}}), Ellipse(origin = {22, 4}, fillColor = {255, 255, 255}, fillPattern = FillPattern.Solid, extent = {{-3, 3}, {3, -3}}, endAngle = 360), Rectangle(origin = {40, 18}, rotation = 120, fillPattern = FillPattern.Solid, extent = {{-4, -2}, {0, 4}}), Rectangle(origin = {4, 16}, rotation = 60, fillPattern = FillPattern.Solid, extent = {{-4, -2}, {0, 4}}), Rectangle(origin = {45, 35}, rotation = 150, fillPattern = FillPattern.Solid, extent = {{2, 14}, {6, 20}}), Rectangle(origin = {13, 24}, rotation = 30, fillPattern = FillPattern.Solid, extent = {{-4, -2}, {0, 4}}), Rectangle(origin = {24, 25}, fillPattern = FillPattern.Solid, extent = {{-4, -2}, {0, 4}}), Rectangle(origin = {-6, 5}, lineThickness = 1, extent = {{-54, 35}, {66, -45}}), Line(origin = {-33, 28}, points = {{-11, 0}, {11, 0}}, thickness = 2), Polygon(origin = {-17, 28}, fillPattern = FillPattern.Solid, points = {{-5, 4}, {-5, -4}, {5, 0}, {-5, 4}, {-5, 4}})}, coordinateSystem(initialScale = 0.1)));
+end Getriebe;
   
     model Rollensystem
       parameter Real n = 4;
@@ -312,6 +316,72 @@ package Flaschenzug
       annotation(
         Icon(graphics = {Rectangle(origin = {0, -21}, fillColor = {143, 143, 143}, fillPattern = FillPattern.Solid, extent = {{-60, 41}, {60, -39}})}));
     end Masse;
+
+    model EMotor2
+      //////////////////////////////////////////////////
+      //Konstanten
+      constant Real g = Modelica.Constants.g_n "Erdbeschleunigung";
+      constant Real pi = Modelica.Constants.pi "Pi";
+      //Parameter
+      /*
+                    parameter Modelica.SIunits.Inductance L_a = 1.6e-3                           "Ankerinduktivität";
+                    parameter Modelica.SIunits.Resistance R_a = 7.19                              "Ankerwiderstand";
+                    parameter Modelica.SIunits.VoltageSecond ke = 79e-2                           "Spannungskonstante";
+                    parameter Modelica.SIunits.Inertia J_tot = 10e-2         "resultierende Trägheit am Motor in kg/m^2";
+                    parameter Modelica.SIunits.Voltage U_a = 48                                   "Ankerspannung";
+                    */
+      parameter Modelica.SIunits.Inductance L_a = 6.2e-4 "Ankerinduktivität";
+      parameter Modelica.SIunits.Resistance R_a = 0.62 "Ankerwiderstand";
+      parameter Modelica.SIunits.VoltageSecond ke = 0.48 "Spannungskonstante";
+      parameter Modelica.SIunits.Inertia J_tot = 108e-6 "resultierende Trägheit am Motor in kg*m^2";
+      parameter Modelica.SIunits.Voltage U_a = 48 "Ankerspannung";
+      parameter Modelica.SIunits.RotationalDampingConstant cf = 4.5e-4 "Reibungsverlustkonstante";
+      parameter Real Drehrichtung = 2 "1: vorwärts, 2: rückwärts, 3: Stillstand";
+      //Variablen
+      Modelica.SIunits.Current I_a(start = 0) "Ankerstrom";
+      Modelica.SIunits.Voltage U_g "induzierte Spannung";
+      Modelica.SIunits.Torque M_e "elektrisches Drehmoment";
+      Modelica.SIunits.Torque M_L = port_Drehmoment_und_Drehzahl1.T "Lastmoment in Nm";
+      Modelica.SIunits.Torque M_f "Reibungsverlustmoment in Nm";
+      Modelica.SIunits.Frequency f = -port_Drehmoment_und_Drehzahl1.n "Drehzahl in 1/s";
+      Modelica.SIunits.Conversions.NonSIunits.AngularVelocity_rpm n "Drehzahl in 1/min";
+      Modelica.SIunits.Frequency omega "Rotorkreisfrequenz";
+      Modelica.SIunits.ElectricalTorqueConstant kt "Drehmomentenkonstante";
+      Ports.Port_Drehmoment_und_Drehzahl port_Drehmoment_und_Drehzahl1 annotation(
+        Placement(visible = true, transformation(origin = {60, 14}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {66, 14}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+    equation
+      if (Drehrichtung == 1) then
+        n = f * 60; //in 1/min
+        omega = 2 * pi * f;
+        kt = ke / (2 * pi);
+        U_a = R_a * I_a + L_a * der(I_a) + U_g;
+        U_g = ke * f;
+        M_e = kt * I_a;
+        M_e = J_tot * der(omega) + M_L + M_f;
+        M_f = cf * f;
+      elseif (Drehrichtung == 2) then   
+        n = f * 60; //in 1/min
+        omega = 2 * pi * f;
+        kt = ke / (2 * pi);
+        -U_a = R_a * I_a + L_a * der(I_a) + U_g;
+        U_g = ke * f;
+        M_e = kt * I_a;
+        M_e = J_tot * der(omega) + M_L + M_f;
+        M_f = cf * f;
+      elseif (Drehrichtung == 3) then
+        n = f * 60; //in 1/min
+        omega = 2 * pi * f;
+        kt = ke / (2 * pi);
+        0 = R_a * I_a + L_a * der(I_a) + U_g;
+        0 = ke * f;
+        M_e = kt * I_a;
+        M_e = J_tot * der(omega) + M_L + M_f;
+        M_f = cf * f;
+      end if;
+////////////////////////////////////////////////
+      annotation(
+        Icon(coordinateSystem(initialScale = 0.1), graphics = {Rectangle(origin = {-20, 41}, fillPattern = FillPattern.Solid, extent = {{-40, 3}, {40, -3}}), Polygon(origin = {32, 14}, fillPattern = FillPattern.Solid, points = {{-8, 30}, {-8, -30}, {-2, -30}, {8, -20}, {8, 20}, {-2, 30}, {-8, 30}}), Rectangle(origin = {84, 13}, fillPattern = FillPattern.Solid, extent = {{-40, 5}, {-26, -3}}), Polygon(origin = {-52, 0}, rotation = 180, fillPattern = FillPattern.Solid, points = {{12, 16}, {12, -44}, {18, -44}, {28, -34}, {28, 6}, {18, 16}, {12, 16}}), Rectangle(origin = {-20, 31}, fillPattern = FillPattern.Solid, extent = {{-40, 3}, {40, -3}}), Rectangle(origin = {-20, 9}, fillPattern = FillPattern.Solid, extent = {{-40, 3}, {40, -3}}), Rectangle(origin = {-20, -3}, fillPattern = FillPattern.Solid, extent = {{-40, 3}, {40, -3}}), Rectangle(origin = {-20, -13}, fillPattern = FillPattern.Solid, extent = {{-40, 3}, {40, -3}}), Rectangle(origin = {-20, 19}, fillPattern = FillPattern.Solid, extent = {{-40, 3}, {40, -3}}), Polygon(origin = {-20, -28}, rotation = 90, fillPattern = FillPattern.Solid, points = {{-8, 30}, {-8, -30}, {-2, -30}, {8, -20}, {8, 20}, {-2, 30}, {-8, 30}}), Rectangle(origin = {-18, -33}, fillPattern = FillPattern.Solid, extent = {{-52, 3}, {50, -3}})}));
+    end EMotor2;
   annotation(    Icon(coordinateSystem(initialScale = 0.1), graphics = {Rectangle(origin = {4, -3}, lineColor = {255, 255, 255}, fillColor = {185, 185, 185}, fillPattern = FillPattern.HorizontalCylinder, extent = {{-104, 103}, {96, -97}}),  Rectangle(origin = {0, 29}, fillPattern = FillPattern.Solid, extent = {{-40, 3}, {40, -3}}), Polygon(origin = {52, 2}, fillPattern = FillPattern.Solid, points = {{-8, 30}, {-8, -30}, {-2, -30}, {8, -20}, {8, 20}, {-2, 30}, {-8, 30}}), Rectangle(origin = {104, 1}, fillPattern = FillPattern.Solid, extent = {{-40, 5}, {-26, -3}}), Polygon(origin = {-52, 2}, rotation = 180, fillPattern = FillPattern.Solid, points = {{-8, 30}, {-8, -30}, {-2, -30}, {8, -20}, {8, 20}, {-2, 30}, {-8, 30}}), Rectangle(origin = {0, 19}, fillPattern = FillPattern.Solid, extent = {{-40, 3}, {40, -3}}), Rectangle(origin = {0, -3}, fillPattern = FillPattern.Solid, extent = {{-40, 3}, {40, -3}}), Rectangle(origin = {0, -15}, fillPattern = FillPattern.Solid, extent = {{-40, 3}, {40, -3}}), Rectangle(origin = {0, -25}, fillPattern = FillPattern.Solid, extent = {{-40, 3}, {40, -3}}), Rectangle(origin = {0, 7}, fillPattern = FillPattern.Solid, extent = {{-40, 3}, {40, -3}}), Polygon(origin = {0, -40}, rotation = 90, fillPattern = FillPattern.Solid, points = {{-8, 30}, {-8, -30}, {-2, -30}, {8, -20}, {8, 20}, {-2, 30}, {-8, 30}}), Rectangle(origin = {2, -45}, fillPattern = FillPattern.Solid, extent = {{-52, 3}, {50, -3}}), Rectangle(origin = {4, 2}, extent = {{-82, 78}, {82, -78}})}));
   
   
@@ -756,7 +826,7 @@ package Flaschenzug
         Placement(visible = true, transformation(origin = {51, 31}, extent = {{-17, -17}, {17, 17}}, rotation = 0)));
       Modelle.Masse masse1(m = 0.5) annotation(
         Placement(visible = true, transformation(origin = {0, -14}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-      Modelle.Masse masse2(m = 6) annotation(
+      Modelle.Masse masse2(m = 15) annotation(
         Placement(visible = true, transformation(origin = {40, -14}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
       Modelle.Seilwinde seilwinde1 annotation(
         Placement(visible = true, transformation(origin = {14, -46}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
@@ -815,6 +885,50 @@ package Flaschenzug
         experiment(StartTime = 0, StopTime = 10, Tolerance = 1e-06, Interval = 0.02),
         __OpenModelica_simulationFlags(lv = "LOG_STATS", outputFormat = "mat", s = "dassl"));
     end Test_Rollen;
+
+    model Test_Getriebe3
+      Modelle.Fixpoint fixpoint1 annotation(
+        Placement(visible = true, transformation(origin = {11, 59}, extent = {{-13, -13}, {13, 13}}, rotation = 0)));
+      Modelle.Fixpoint fixpoint2 annotation(
+        Placement(visible = true, transformation(origin = {51, 59}, extent = {{-13, -13}, {13, 13}}, rotation = 0)));
+      Modelle.Rolle_oben rolle_oben1 annotation(
+        Placement(visible = true, transformation(origin = {11, 31}, extent = {{-17, -17}, {17, 17}}, rotation = 0)));
+      Modelle.Rolle_oben rolle_oben2 annotation(
+        Placement(visible = true, transformation(origin = {51, 31}, extent = {{-17, -17}, {17, 17}}, rotation = 0)));
+      Modelle.Masse masse1(m = 0.5) annotation(
+        Placement(visible = true, transformation(origin = {0, -14}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+      Modelle.Masse masse2(m = 10) annotation(
+        Placement(visible = true, transformation(origin = {40, -14}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+      Modelle.Seilwinde seilwinde1 annotation(
+        Placement(visible = true, transformation(origin = {14, -46}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
+      Modelle.Seilwinde seilwinde2 annotation(
+        Placement(visible = true, transformation(origin = {55, -73}, extent = {{-19, -19}, {19, 19}}, rotation = 0)));
+  Flaschenzug.Modelle.EMotor2 eMotor21 annotation(
+        Placement(visible = true, transformation(origin = {-61, -51}, extent = {{-19, -19}, {19, 19}}, rotation = 0)));
+  Flaschenzug.Modelle.EMotor2 eMotor22 annotation(
+        Placement(visible = true, transformation(origin = {-59, -79}, extent = {{-21, -21}, {21, 21}}, rotation = 0)));
+    equation
+      connect(eMotor22.port_Drehmoment_und_Drehzahl1, seilwinde2.port_T_n) annotation(
+        Line(points = {{-45, -76}, {42, -76}}, color = {0, 85, 255}));
+      connect(eMotor21.port_Drehmoment_und_Drehzahl1, seilwinde1.port_T_n) annotation(
+        Line(points = {{-48, -48}, {0, -48}, {0, -48}, {0, -48}}, color = {0, 85, 255}));
+      connect(seilwinde1.port_F_s, rolle_oben1.port_rechts) annotation(
+        Line(points = {{22, -31}, {22, 20}}, color = {255, 0, 0}));
+      connect(seilwinde2.port_F_s, rolle_oben2.port_rechts) annotation(
+        Line(points = {{62, -59}, {62, 20}}, color = {255, 0, 0}));
+      connect(rolle_oben2.port_links, masse2.PortMasse) annotation(
+        Line(points = {{40, 20}, {40, 20}, {40, -10}, {40, -10}}, color = {255, 0, 0}));
+      connect(rolle_oben1.port_links, masse1.PortMasse) annotation(
+        Line(points = {{0, 20}, {0, 20}, {0, -10}, {0, -10}}, color = {255, 0, 0}));
+      connect(fixpoint1.portFix, rolle_oben1.port_oben) annotation(
+        Line(points = {{11, 57.44}, {11, 45.44}}, color = {255, 0, 0}));
+      connect(fixpoint2.portFix, rolle_oben2.port_oben) annotation(
+        Line(points = {{51, 57.44}, {52, 57.44}, {52, 59.44}, {51, 59.44}, {51, 45.44}, {52, 45.44}, {52, 43.44}, {51, 43.44}}, color = {255, 0, 0}));
+      annotation(
+        experiment(StartTime = 0, StopTime = 10, Tolerance = 1e-6, Interval = 0.02),
+        __OpenModelica_simulationFlags(lv = "LOG_STATS", outputFormat = "mat", s = "dassl"),
+        Diagram);
+    end Test_Getriebe3;
   annotation (Icon(coordinateSystem(initialScale = 0.1), graphics = {Rectangle(origin = {4, -3}, lineColor = {255, 255, 255}, fillColor = {185, 185, 185}, fillPattern = FillPattern.HorizontalCylinder, extent = {{-104, 103}, {96, -97}}), Rectangle(origin = {0, 1}, extent = {{-80, 83}, {80, -83}}), Rectangle(origin = {-47, 7}, fillPattern = FillPattern.Solid, extent = {{-5, -51}, {3, 51}}), Rectangle(origin = {45, 7}, fillPattern = FillPattern.Solid, extent = {{-3, -51}, {5, 51}}), Polygon(origin = {22, 7}, fillPattern = FillPattern.Solid, points = {{20, 51}, {26, 45}, {-16, -25}, {-24, -23}, {-26, -25}, {20, 51}}), Polygon(origin = {-23, 7}, fillPattern = FillPattern.Solid, points = {{-27, 51}, {-21, 51}, {-27, 43}, {19, -25}, {29, -25}, {-21, 51}, {-27, 51}})}));  
   end Beispiele;
 
