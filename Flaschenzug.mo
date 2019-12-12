@@ -89,8 +89,8 @@ package Flaschenzug
       f=der(Port_Motor.s)/(pi*D);
 //  Port_Motor.s = sin(time);
 //  Port_Motor.s=12;
-//  Port_Motor.s= 0.68*atan(2*time);
-//  Port_Motor.s = 3*(sin(0.1*time))^2;
+  // Port_Motor.s= 0.68*atan(2*time);
+  //Port_Motor.s = 3*(sin(0.1*time))^2;
       Port_Motor.s=1*time;
   ////////////////////////////////////////////////
       annotation(
@@ -116,7 +116,7 @@ package Flaschenzug
       parameter Modelica.SIunits.Inertia J_tot = 2.16e-2 "resultierende Trägheit am Motor in kg/m^2";
       parameter Modelica.SIunits.Voltage U_a = 48 "Ankerspannung";
       //Variablen
-      Modelica.SIunits.Current I_a(start = 1) "Ankerstrom";
+      Modelica.SIunits.Current I_a(start = 0) "Ankerstrom";
       Modelica.SIunits.Voltage U_g "induzierte Spannung";
       Modelica.SIunits.Torque M_e "elektrisches Drehmoment";
       Modelica.SIunits.Torque M_L = port_Drehmoment_und_Drehzahl1.T "Lastmoment in Nm";
@@ -304,7 +304,7 @@ package Flaschenzug
       ///////////////////////////////////////////////////////
     equation
       F_g = m * g;
-      PortMasse.F = F_g + F_t;
+      PortMasse.F = -(F_g + F_t);
       F_t = m * a;
       der(v) = a;
       der(s_masse) = v;
@@ -706,7 +706,7 @@ package Flaschenzug
         Placement(visible = true, transformation(origin = {11, 31}, extent = {{-17, -17}, {17, 17}}, rotation = 0)));
       Modelle.Rolle_oben rolle_oben2 annotation(
         Placement(visible = true, transformation(origin = { 51, 31}, extent = {{-17, -17}, {17, 17}}, rotation = 0)));
-    Modelle.Masse masse1(m = 5)  annotation(
+    Modelle.Masse masse1(m = 7)  annotation(
         Placement(visible = true, transformation(origin = {0, -14}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
     Modelle.Masse masse2(m = 5)  annotation(
         Placement(visible = true, transformation(origin = {40, -14}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -714,7 +714,7 @@ package Flaschenzug
         Placement(visible = true, transformation(origin = {14, -46}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
     Modelle.Getriebe getriebe1(i = 10)  annotation(
         Placement(visible = true, transformation(origin = {8, -76}, extent = {{-18, -18}, {18, 18}}, rotation = 0)));
-    Modelle.EMotor eMotor1 annotation(
+    Modelle.EMotor eMotor1(U_a = 12)  annotation(
         Placement(visible = true, transformation(origin = {-66, -52}, extent = {{-18, -18}, {18, 18}}, rotation = 0)));
     Modelle.EMotor eMotor2 annotation(
         Placement(visible = true, transformation(origin = {-66, -78}, extent = {{-18, -18}, {18, 18}}, rotation = 0)));
@@ -744,8 +744,50 @@ package Flaschenzug
         __OpenModelica_simulationFlags(lv = "LOG_STATS", outputFormat = "mat", s = "dassl"),
         Diagram);
     end Test_Getriebe1;
-  
-  
+
+    model Test_Getriebe2
+      Modelle.Fixpoint fixpoint1 annotation(
+        Placement(visible = true, transformation(origin = {11, 59}, extent = {{-13, -13}, {13, 13}}, rotation = 0)));
+      Modelle.Fixpoint fixpoint2 annotation(
+        Placement(visible = true, transformation(origin = {51, 59}, extent = {{-13, -13}, {13, 13}}, rotation = 0)));
+      Modelle.Rolle_oben rolle_oben1 annotation(
+        Placement(visible = true, transformation(origin = {11, 31}, extent = {{-17, -17}, {17, 17}}, rotation = 0)));
+      Modelle.Rolle_oben rolle_oben2 annotation(
+        Placement(visible = true, transformation(origin = {51, 31}, extent = {{-17, -17}, {17, 17}}, rotation = 0)));
+      Modelle.Masse masse1(m = 1) annotation(
+        Placement(visible = true, transformation(origin = {0, -14}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+      Modelle.Masse masse2(m = 6) annotation(
+        Placement(visible = true, transformation(origin = {40, -14}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+      Modelle.Seilwinde seilwinde1 annotation(
+        Placement(visible = true, transformation(origin = {14, -46}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
+      Modelle.EMotor eMotor1(U_a = 48) annotation(
+        Placement(visible = true, transformation(origin = {-66, -52}, extent = {{-18, -18}, {18, 18}}, rotation = 0)));
+      Modelle.EMotor eMotor2 annotation(
+        Placement(visible = true, transformation(origin = {-66, -78}, extent = {{-18, -18}, {18, 18}}, rotation = 0)));
+      Modelle.Seilwinde seilwinde2 annotation(
+        Placement(visible = true, transformation(origin = {55, -73}, extent = {{-19, -19}, {19, 19}}, rotation = 0)));
+    equation
+      connect(eMotor2.port_Drehmoment_und_Drehzahl1, seilwinde2.port_T_n) annotation(
+        Line(points = {{-54, -76}, {42, -76}, {42, -76}, {42, -76}}, color = {0, 85, 255}));
+      connect(eMotor1.port_Drehmoment_und_Drehzahl1, seilwinde1.port_T_n) annotation(
+        Line(points = {{-54, -49}, {0, -49}}, color = {0, 85, 255}));
+      connect(seilwinde1.port_F_s, rolle_oben1.port_rechts) annotation(
+        Line(points = {{22, -31}, {22, 20}}, color = {255, 0, 0}));
+      connect(seilwinde2.port_F_s, rolle_oben2.port_rechts) annotation(
+        Line(points = {{62, -59}, {62, 20}}, color = {255, 0, 0}));
+      connect(rolle_oben2.port_links, masse2.PortMasse) annotation(
+        Line(points = {{40, 20}, {40, 20}, {40, -10}, {40, -10}}, color = {255, 0, 0}));
+      connect(rolle_oben1.port_links, masse1.PortMasse) annotation(
+        Line(points = {{0, 20}, {0, 20}, {0, -10}, {0, -10}}, color = {255, 0, 0}));
+      connect(fixpoint1.portFix, rolle_oben1.port_oben) annotation(
+        Line(points = {{11, 57.44}, {11, 45.44}}, color = {255, 0, 0}));
+      connect(fixpoint2.portFix, rolle_oben2.port_oben) annotation(
+        Line(points = {{51, 57.44}, {52, 57.44}, {52, 59.44}, {51, 59.44}, {51, 45.44}, {52, 45.44}, {52, 43.44}, {51, 43.44}}, color = {255, 0, 0}));
+      annotation(
+        experiment(StartTime = 0, StopTime = 10, Tolerance = 1e-6, Interval = 0.02),
+        __OpenModelica_simulationFlags(lv = "LOG_STATS", outputFormat = "mat", s = "dassl"),
+        Diagram);
+    end Test_Getriebe2;
   annotation (Icon(coordinateSystem(initialScale = 0.1), graphics = {Rectangle(origin = {4, -3}, lineColor = {255, 255, 255}, fillColor = {185, 185, 185}, fillPattern = FillPattern.HorizontalCylinder, extent = {{-104, 103}, {96, -97}}), Rectangle(origin = {0, 1}, extent = {{-80, 83}, {80, -83}}), Rectangle(origin = {-47, 7}, fillPattern = FillPattern.Solid, extent = {{-5, -51}, {3, 51}}), Rectangle(origin = {45, 7}, fillPattern = FillPattern.Solid, extent = {{-3, -51}, {5, 51}}), Polygon(origin = {22, 7}, fillPattern = FillPattern.Solid, points = {{20, 51}, {26, 45}, {-16, -25}, {-24, -23}, {-26, -25}, {20, 51}}), Polygon(origin = {-23, 7}, fillPattern = FillPattern.Solid, points = {{-27, 51}, {-21, 51}, {-27, 43}, {19, -25}, {29, -25}, {-21, 51}, {-27, 51}})}));  
   end Beispiele;
 
