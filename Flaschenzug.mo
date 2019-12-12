@@ -35,7 +35,7 @@ package Flaschenzug
     /////////////////////////////////////////
       flow Modelica.SIunits.Torque T    "Drehmoment" ;
        Modelica.SIunits.Frequency n "Drehzahl in Hertz"; 
-  /////////////////////////////////////////
+/////////////////////////////////////////
       annotation(
         Icon(graphics = {Rectangle(origin = {7, -8}, lineColor = {0, 85, 255}, fillColor = {0, 85, 255}, fillPattern = FillPattern.Solid, extent = {{-47, 48}, {33, -32}}), Rectangle(origin = {40, 56}, lineColor = {0, 85, 255}, fillColor = {0, 85, 255}, fillPattern = FillPattern.Solid, extent = {{-20, 4}, {20, -4}}), Rectangle(origin = {56, -4}, lineColor = {0, 85, 255}, fillColor = {0, 85, 255}, fillPattern = FillPattern.Solid, extent = {{4, 56}, {-4, -48}}), Rectangle(origin = {40, -56}, lineColor = {0, 85, 255}, fillColor = {0, 85, 255}, fillPattern = FillPattern.Solid, extent = {{-20, 4}, {20, -4}}), Rectangle(origin = {-40, 56}, lineColor = {0, 85, 255}, fillColor = {0, 85, 255}, fillPattern = FillPattern.Solid, extent = {{-20, 4}, {20, -4}}), Rectangle(origin = {-40, -56}, lineColor = {0, 85, 255}, fillColor = {0, 85, 255}, fillPattern = FillPattern.Solid, extent = {{-20, -4}, {20, 4}}), Rectangle(origin = {-56, 0}, lineColor = {0, 85, 255}, fillColor = {0, 85, 255}, fillPattern = FillPattern.Solid, extent = {{-4, 52}, {4, -52}})}),
         Diagram,
@@ -89,10 +89,10 @@ package Flaschenzug
       f=der(Port_Motor.s)/(pi*D);
 //  Port_Motor.s = sin(time);
 //  Port_Motor.s=12;
-  // Port_Motor.s= 0.68*atan(2*time);
-  //Port_Motor.s = 3*(sin(0.1*time))^2;
+// Port_Motor.s= 0.68*atan(2*time);
+//Port_Motor.s = 3*(sin(0.1*time))^2;
       Port_Motor.s=1*time;
-  ////////////////////////////////////////////////
+////////////////////////////////////////////////
       annotation(
         Icon(coordinateSystem(initialScale = 0.1), graphics = {Rectangle(origin = {0, 27}, fillColor = {255, 85, 0}, fillPattern = FillPattern.Solid, extent = {{-40, 3}, {40, -3}}), Polygon(origin = {52, 0}, fillColor = {255, 85, 0}, fillPattern = FillPattern.Solid, points = {{-8, 30}, {-8, -30}, {-2, -30}, {8, -20}, {8, 20}, {-2, 30}, {-8, 30}}), Rectangle(origin = {104, -1}, fillColor = {255, 85, 0}, fillPattern = FillPattern.Solid, extent = {{-40, 5}, {-26, -3}}), Polygon(origin = {-52, 0}, rotation = 180, fillColor = {255, 85, 0}, fillPattern = FillPattern.Solid, points = {{-8, 30}, {-8, -30}, {-2, -30}, {8, -20}, {8, 20}, {-2, 30}, {-8, 30}}), Rectangle(origin = {0, -27}, fillColor = {255, 85, 0}, fillPattern = FillPattern.Solid, extent = {{-40, 3}, {40, -3}}), Polygon(origin = {0, -42}, rotation = 90, fillColor = {255, 85, 0}, fillPattern = FillPattern.Solid, points = {{-8, 30}, {-8, -30}, {-2, -30}, {8, -20}, {8, 20}, {-2, 30}, {-8, 30}}), Rectangle(origin = {2, -47}, fillColor = {255, 85, 0}, fillPattern = FillPattern.Solid, extent = {{-52, 3}, {50, -3}}), Text(origin = { 4, 6}, extent = {{20, 62}, {-30, -72}}, textString = "TEST"), Rectangle(origin = {-38, -1}, fillColor = {255, 85, 0}, fillPattern = FillPattern.Solid, extent = {{-40, 5}, {-26, -3}})}));
     end Test_Motor;
@@ -135,17 +135,17 @@ package Flaschenzug
       U_g = ke * f;
       M_e = kt * I_a;
       M_e = J_tot * der(omega) + M_L;
-  ////////////////////////////////////////////////
+////////////////////////////////////////////////
       annotation(
         Icon(coordinateSystem(initialScale = 0.1), graphics = {Rectangle(origin = {-20, 41}, fillPattern = FillPattern.Solid, extent = {{-40, 3}, {40, -3}}), Polygon(origin = {32, 14}, fillPattern = FillPattern.Solid, points = {{-8, 30}, {-8, -30}, {-2, -30}, {8, -20}, {8, 20}, {-2, 30}, {-8, 30}}), Rectangle(origin = {84, 13}, fillPattern = FillPattern.Solid, extent = {{-40, 5}, {-26, -3}}), Polygon(origin = {-52, 0}, rotation = 180, fillPattern = FillPattern.Solid, points = {{12, 16}, {12, -44}, {18, -44}, {28, -34}, {28, 6}, {18, 16}, {12, 16}}), Rectangle(origin = {-20, 31}, fillPattern = FillPattern.Solid, extent = {{-40, 3}, {40, -3}}), Rectangle(origin = {-20, 9}, fillPattern = FillPattern.Solid, extent = {{-40, 3}, {40, -3}}), Rectangle(origin = {-20, -3}, fillPattern = FillPattern.Solid, extent = {{-40, 3}, {40, -3}}), Rectangle(origin = {-20, -13}, fillPattern = FillPattern.Solid, extent = {{-40, 3}, {40, -3}}), Rectangle(origin = {-20, 19}, fillPattern = FillPattern.Solid, extent = {{-40, 3}, {40, -3}}), Polygon(origin = {-20, -28}, rotation = 90, fillPattern = FillPattern.Solid, points = {{-8, 30}, {-8, -30}, {-2, -30}, {8, -20}, {8, 20}, {-2, 30}, {-8, 30}}), Rectangle(origin = {-18, -33}, fillPattern = FillPattern.Solid, extent = {{-52, 3}, {50, -3}})}));
     end EMotor;
     class Getriebe
-      parameter Real i = 20;                    //Übersetzung
+      parameter Real i = 20;                          //Übersetzung
       Real X;                                    
         Ports.Port_Drehmoment_und_Drehzahl Port_in annotation(
         Placement(visible = true, transformation(origin = {-72, -2}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-66, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
         Ports.Port_Drehmoment_und_Drehzahl Port_out annotation(
-        Placement(visible = true, transformation(origin = {64, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {66, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));                                                   //Moment Motor
+        Placement(visible = true, transformation(origin = {64, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {66, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));                                                         //Moment Motor
     equation
     
     X=1/i;
@@ -206,7 +206,7 @@ package Flaschenzug
       F_t = m * a;
       F_tm= m/2*a;
       port_rechts.F = port_links.F;
-      port_rechts.F + port_links.F + port_oben.F - F_ges = -port_unten.F;
+      port_rechts.F + port_links.F + port_oben.F + F_ges = -port_unten.F;
       (port_rechts.s + port_links.s) / 2 = s;
       s = port_oben.s;
       s = port_unten.s;
@@ -245,7 +245,7 @@ package Flaschenzug
       F_t = m * a;
       F_tm= m/2*a;
       port_rechts.F = port_links.F;
-      port_rechts.F + port_links.F + port_oben.F - F_ges = -port_unten.F;
+      port_rechts.F + port_links.F + port_oben.F + F_ges = -port_unten.F;
       (port_rechts.s + port_links.s) / 2 = s;
       s = port_oben.s;
       s = port_unten.s;
@@ -430,7 +430,7 @@ package Flaschenzug
         Placement(visible = true, transformation(origin = {1, 93}, extent = {{-21, -21}, {21, 21}}, rotation = 0)));
       Modelle.Rolle_oben rolle_oben annotation(
         Placement(visible = true, transformation(origin = {1, 61}, extent = {{-23, -23}, {23, 23}}, rotation = 0)));
-      Modelle.Rolle_oben rolle_oben1 annotation(
+      Modelle.Rolle_oben rolle_oben1(m = 0)  annotation(
         Placement(visible = true, transformation(origin = {1, 19}, extent = {{-15, -15}, {15, 15}}, rotation = 0)));
       Modelle.Masse masse1 annotation(
         Placement(visible = true, transformation(origin = {2, -90}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -788,6 +788,33 @@ package Flaschenzug
         __OpenModelica_simulationFlags(lv = "LOG_STATS", outputFormat = "mat", s = "dassl"),
         Diagram);
     end Test_Getriebe2;
+
+    model Test_Rollen
+      Modelle.Rolle_oben rolle_oben(m = 10)  annotation(
+        Placement(visible = true, transformation(origin = {-1, 28}, extent = {{-24, -24}, {24, 24}}, rotation = 0)));
+      Modelle.Fixpoint fixpoint1 annotation(
+        Placement(visible = true, transformation(origin = {-1, 81}, extent = {{-25, -25}, {25, 25}}, rotation = 0)));
+      Modelle.Test_Motor test_Motor1 annotation(
+        Placement(visible = true, transformation(origin = {-60, 0}, extent = {{-22, -22}, {22, 22}}, rotation = 0)));
+      Flaschenzug.Modelle.Masse masse2(m = 10) annotation(
+        Placement(visible = true, transformation(origin = {0, -68}, extent = {{-16, -16}, {16, 16}}, rotation = 0)));
+  Flaschenzug.Modelle.Rolle_unten rolle_unten1 annotation(
+        Placement(visible = true, transformation(origin = {14, -32}, extent = {{-16, -16}, {16, 16}}, rotation = 0)));
+    equation
+      connect(rolle_unten1.port_links, rolle_unten1.port_rechts) annotation(
+        Line(points = {{4, -24}, {4, -24}, {4, -10}, {24, -10}, {24, -24}, {24, -24}}, color = {255, 0, 0}));
+      connect(rolle_unten1.port_oben, rolle_oben.port_rechts) annotation(
+        Line(points = {{14, -19}, {14, 12}}, color = {0, 170, 0}));
+      connect(rolle_oben.port_unten, masse2.PortMasse) annotation(
+        Line(points = {{0, 6}, {0, -63}}, color = {255, 0, 0}));
+      connect(test_Motor1.Port_Motor, rolle_oben.port_links) annotation(
+        Line(points = {{-41, 0}, {-16, 0}, {-16, 12}}, color = {255, 0, 0}));
+      connect(rolle_oben.port_oben, fixpoint1.portFix) annotation(
+        Line(points = {{-1, 50}, {-1, 78}}, color = {0, 170, 0}));
+      annotation(
+        experiment(StartTime = 0, StopTime = 10, Tolerance = 1e-06, Interval = 0.02),
+        __OpenModelica_simulationFlags(lv = "LOG_STATS", outputFormat = "mat", s = "dassl"));
+    end Test_Rollen;
   annotation (Icon(coordinateSystem(initialScale = 0.1), graphics = {Rectangle(origin = {4, -3}, lineColor = {255, 255, 255}, fillColor = {185, 185, 185}, fillPattern = FillPattern.HorizontalCylinder, extent = {{-104, 103}, {96, -97}}), Rectangle(origin = {0, 1}, extent = {{-80, 83}, {80, -83}}), Rectangle(origin = {-47, 7}, fillPattern = FillPattern.Solid, extent = {{-5, -51}, {3, 51}}), Rectangle(origin = {45, 7}, fillPattern = FillPattern.Solid, extent = {{-3, -51}, {5, 51}}), Polygon(origin = {22, 7}, fillPattern = FillPattern.Solid, points = {{20, 51}, {26, 45}, {-16, -25}, {-24, -23}, {-26, -25}, {20, 51}}), Polygon(origin = {-23, 7}, fillPattern = FillPattern.Solid, points = {{-27, 51}, {-21, 51}, {-27, 43}, {19, -25}, {29, -25}, {-21, 51}, {-27, 51}})}));  
   end Beispiele;
 
