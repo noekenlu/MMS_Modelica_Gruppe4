@@ -157,20 +157,33 @@ end Getriebe;
       Modelica.SIunits.Acceleration a "Beschleunigung Rolle trans.";
       Modelica.SIunits.Velocity v "Geschwindigkeit Rolle trans.";
       Modelica.SIunits.Length s "Weg Rolle trans.";
+      Modelica.SIunits.Acceleration au "UmfangsBeschleunigung Rolle .";
+      Modelica.SIunits.Velocity vu "UmfangsGeschwindigkeit Rolle .";
+      Modelica.SIunits.Length su "UmfangsWeg Rolle trans.";
+      Real VZ  "Vorzeichen";
       ////////////////////////////////////////////////////////////////
     equation
-      F_ges = F_t + F_g +F_tm;
+      F_ges = F_t + F_g;
       F_g = m * g;
       F_t = m * a;
-      F_tm= m/2*a;
-      port_rechts.F = port_links.F;
+      F_tm= m/2*au*VZ;
+      
+      port_rechts.F = port_links.F +F_tm;
       port_rechts.F + port_links.F + port_oben.F + F_ges = -port_unten.F;
       (port_rechts.s + port_links.s) / 2 = s;
       s = port_oben.s;
       s = port_unten.s;
       der(v) = a;
       der(s) = v;
-//////////////////////////////////////////////////////////////////
+      
+      (abs(port_rechts.s)+abs(port_links.s))/2 =su;
+      der(vu) = au;
+      der(su) = vu;
+      
+     
+      VZ=(port_links.s-port_rechts.s)/abs(port_links.s-port_rechts.s);
+      
+    //////////////////////////////////////////////////////////////////
       annotation(
         Icon(coordinateSystem(initialScale = 0.1), graphics = {Ellipse(origin = {1, -9}, fillColor = {252, 252, 252}, fillPattern = FillPattern.Solid, lineThickness = 4, extent = {{-61, 61}, {59, -59}}, endAngle = 360), Rectangle(extent = {{-10, 80}, {-10, 80}}), Rectangle(extent = {{-8, 82}, {-8, 82}}), Rectangle(origin = {-4, 13}, lineColor = {255, 255, 255}, fillPattern = FillPattern.Solid, lineThickness = 1, extent = {{10, 61}, {-2, -103}}), Ellipse(origin = {1, -11}, fillPattern = FillPattern.Solid, extent = {{-21, 23}, {19, -17}}, endAngle = 360), Rectangle(origin = {-55, -13}, fillPattern = FillPattern.Solid, extent = {{-7, 11}, {-9, -49}}), Rectangle(origin = {63, -31}, fillPattern = FillPattern.Solid, extent = {{-1, 31}, {1, -31}}), Rectangle(origin = {31, -8}, fillPattern = FillPattern.Solid, extent = {{-1, 20}, {3, -20}}), Polygon(origin = {0, -8}, points = {{-78, -48}, {-78, -48}, {-78, -48}}), Polygon(origin = {38, 22}, fillPattern = FillPattern.Solid, points = {{-6, 6}, {-12, -10}, {0, -10}, {-6, 6}}), Polygon(origin = {38, -16}, fillPattern = FillPattern.Solid, points = {{-6, -26}, {-12, -10}, {0, -10}, {-6, -26}})}),
         experiment(StartTime = 0, StopTime = 1, Tolerance = 1e-6, Interval = 0.002),
@@ -187,7 +200,7 @@ end Getriebe;
       Ports.Port1 port_oben annotation(
         Placement(visible = true, transformation(origin = {-10, 66}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {0, 82}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
       //////////////////////////////////////////////////////////////////
-      parameter Modelica.SIunits.Mass m = 10 "Masse Rolle";
+      parameter Modelica.SIunits.Mass m = 0 "Masse Rolle";
       constant Real g = Modelica.Constants.g_n "Erdbeschleunigung";
       Modelica.SIunits.Force F_g "Gewichtskraft";
       Modelica.SIunits.Force F_t "Trägheitskraft";
@@ -196,20 +209,35 @@ end Getriebe;
       Modelica.SIunits.Acceleration a "Beschleunigung Rolle trans.";
       Modelica.SIunits.Velocity v "Geschwindigkeit Rolle trans.";
       Modelica.SIunits.Length s "Weg Rolle trans.";
+      Modelica.SIunits.Acceleration au "UmfangsBeschleunigung Rolle .";
+      Modelica.SIunits.Velocity vu "UmfangsGeschwindigkeit Rolle .";
+      Modelica.SIunits.Length su "UmfangsWeg Rolle trans.";
+      Real VZ  "Vorzeichen";
       ////////////////////////////////////////////////////////////////
     equation
-      F_ges = F_t + F_g + F_tm;
+       F_ges = F_t + F_g;
       F_g = m * g;
       F_t = m * a;
-      F_tm= m/2*a;
-      port_rechts.F = port_links.F;
+      F_tm= m/2*au*VZ;
+      
+      port_rechts.F = port_links.F +F_tm;
       port_rechts.F + port_links.F + port_oben.F + F_ges = -port_unten.F;
       (port_rechts.s + port_links.s) / 2 = s;
       s = port_oben.s;
       s = port_unten.s;
       der(v) = a;
       der(s) = v;
-//////////////////////////////////////////////////////////////////
+      
+      
+      
+      (abs(port_rechts.s)+abs(port_links.s))/2 =su;
+      der(vu) = au;
+      der(su) = vu;
+      
+      VZ=(port_links.s-port_rechts.s)/abs(port_links.s-port_rechts.s);
+     
+      
+    //////////////////////////////////////////////////////////////////
       annotation(
         Icon(coordinateSystem(initialScale = 0.1), graphics = {Ellipse(origin = {1, -9}, fillColor = {252, 252, 252}, fillPattern = FillPattern.Solid, lineThickness = 4, extent = {{-61, 61}, {59, -59}}, endAngle = 360), Rectangle(extent = {{-10, 80}, {-10, 80}}), Rectangle(extent = {{-8, 82}, {-8, 82}}), Rectangle(origin = {-4, 13}, lineColor = {255, 255, 255}, fillPattern = FillPattern.Solid, lineThickness = 1, extent = {{10, 61}, {-2, -103}}), Ellipse(origin = {1, -11}, fillPattern = FillPattern.Solid, extent = {{-21, 23}, {19, -17}}, endAngle = 360), Rectangle(origin = {-55, 41}, fillPattern = FillPattern.Solid, extent = {{-7, 11}, {-9, -49}}), Rectangle(origin = {63, 21}, fillPattern = FillPattern.Solid, extent = {{-1, 31}, {1, -31}}), Rectangle(origin = {31, -8}, fillPattern = FillPattern.Solid, extent = {{-1, 20}, {3, -20}}), Polygon(origin = {0, -8}, points = {{-78, -48}, {-78, -48}, {-78, -48}}), Polygon(origin = {38, 22}, fillPattern = FillPattern.Solid, points = {{-6, 6}, {-12, -10}, {0, -10}, {-6, 6}}), Polygon(origin = {38, -16}, fillPattern = FillPattern.Solid, points = {{-6, -26}, {-12, -10}, {0, -10}, {-6, -26}})}),
         experiment(StartTime = 0, StopTime = 1, Tolerance = 1e-6, Interval = 0.002),
