@@ -149,8 +149,8 @@ class Getriebe
     Ports.Port_Drehmoment_und_Drehzahl Port_in annotation(
     Placement(visible = true, transformation(origin = {-72, -2}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-66, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
     Ports.Port_Drehmoment_und_Drehzahl Port_out annotation(
-    Placement(visible = true, transformation(origin = {64, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {66, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));                                                         //Moment Motor
-equation
+    Placement(visible = true, transformation(origin = {64, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {66, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));                                                               //Moment Motor
+    equation
 
 X=1/i;
 /*
@@ -351,7 +351,8 @@ end Getriebe;
         Placement(visible = true, transformation(origin = {60, 14}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {66, 14}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
     equation
       if (Drehrichtung == 1) then
-        n = f * 60; //in 1/min
+        n = f * 60;
+//in 1/min
         omega = 2 * pi * f;
         kt = ke / (2 * pi);
         U_a = R_a * I_a + L_a * der(I_a) + U_g;
@@ -360,7 +361,8 @@ end Getriebe;
         M_e = J_tot * der(omega) + M_L + M_f;
         M_f = cf * f;
       elseif (Drehrichtung == 2) then   
-        n = f * 60; //in 1/min
+        n = f * 60;
+//in 1/min
         omega = 2 * pi * f;
         kt = ke / (2 * pi);
         -U_a = R_a * I_a + L_a * der(I_a) + U_g;
@@ -369,7 +371,8 @@ end Getriebe;
         M_e = J_tot * der(omega) + M_L + M_f;
         M_f = cf * f;
       elseif (Drehrichtung == 3) then
-        n = f * 60; //in 1/min
+        n = f * 60;
+//in 1/min
         omega = 2 * pi * f;
         kt = ke / (2 * pi);
         0 = R_a * I_a + L_a * der(I_a) + U_g;
@@ -824,9 +827,9 @@ end Getriebe;
         Placement(visible = true, transformation(origin = {11, 31}, extent = {{-17, -17}, {17, 17}}, rotation = 0)));
       Modelle.Rolle_oben rolle_oben2 annotation(
         Placement(visible = true, transformation(origin = {51, 31}, extent = {{-17, -17}, {17, 17}}, rotation = 0)));
-      Modelle.Masse masse1(m = 0.5) annotation(
+      Modelle.Masse masse1(m = 0) annotation(
         Placement(visible = true, transformation(origin = {0, -14}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-      Modelle.Masse masse2(m = 15) annotation(
+      Modelle.Masse masse2(m = 0.5) annotation(
         Placement(visible = true, transformation(origin = {40, -14}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
       Modelle.Seilwinde seilwinde1 annotation(
         Placement(visible = true, transformation(origin = {14, -46}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
