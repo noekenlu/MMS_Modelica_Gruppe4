@@ -1,0 +1,54 @@
+model Test_Motor
+ //Ports________________________________________________________________
+  Ports.Port_Kraft_und_Weg Port_Motor annotation(
+    Placement(visible = true, transformation(origin = {2, -2}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {88, 0}, extent = {{-8, -8}, {8, 8}}, rotation = 90)));
+  Ports.Port_Drehmoment_und_Drehzahl port_Drehmoment_und_Drehzahl1 annotation(
+    Placement(visible = true, transformation(origin = {-90, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-88, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+ //Konstanten________________________________________________________________
+  constant Real g = Modelica.Constants.g_n "Erdbeschleunigung";
+  constant Real pi = Modelica.Constants.pi "Pi";
+ //Variablen________________________________________________________________
+  Modelica.SIunits.Force F_z "Motorkraft";
+  Modelica.SIunits.Acceleration a "Beschleunigung";
+  Modelica.SIunits.Velocity v "Geschwindigkeit";
+  Modelica.SIunits.Length s_Motor = Port_Motor.s "Weg des Seils, das durch den Motor läuft";
+  Modelica.SIunits.Torque M = port_Drehmoment_und_Drehzahl1.T "Lastmoment in Nm";
+  Modelica.SIunits.Frequency f = port_Drehmoment_und_Drehzahl1.n "Drehzahl in 1/s";
+ //Parameter________________________________________________________________
+  parameter Real D = 0.318 "Durchmesser Seilwinde";
+   parameter Real Zustand = 1  "1: linear, 2: konstant, 3: beschraenkt, 4: beschleunigt, 5: sinus";
+  //Gleichungen________________________________________________________________
+equation
+
+  Port_Motor.F = F_z;
+  der(v) = a;
+  der(Port_Motor.s) = v;
+  f = v / (pi * D);
+//  Port_Motor.s = sin(time);
+//  Port_Motor.s=12;
+//  Port_Motor.s= 0.68*atan(2*time);
+//  Port_Motor.s = 3*(sin(0.1*time))^2;
+//  Port_Motor.s = 1 * time;
+ 
+   if Zustand == 1 then
+   Port_Motor.s = 1 * time;
+   
+   elseif Zustand == 2 then
+   Port_Motor.s=12;
+   
+   elseif Zustand == 3 then
+   Port_Motor.s= 0.68*atan(2*time);
+   
+   elseif Zustand == 4 then
+   v = 1*time;
+   
+   elseif Zustand == 5 then
+   Port_Motor.s = sin(time);
+   
+   end if;
+  
+//Annotation________________________________________________________________
+  annotation(
+    Icon(coordinateSystem(initialScale = 0.1), graphics = {Rectangle(origin = {0, 27}, fillColor = {255, 85, 0}, fillPattern = FillPattern.Solid, extent = {{-40, 3}, {40, -3}}), Polygon(origin = {52, 0}, fillColor = {255, 85, 0}, fillPattern = FillPattern.Solid, points = {{-8, 30}, {-8, -30}, {-2, -30}, {8, -20}, {8, 20}, {-2, 30}, {-8, 30}}), Rectangle(origin = {104, -1}, fillColor = {255, 85, 0}, fillPattern = FillPattern.Solid, extent = {{-40, 5}, {-26, -3}}), Polygon(origin = {-52, 0}, rotation = 180, fillColor = {255, 85, 0}, fillPattern = FillPattern.Solid, points = {{-8, 30}, {-8, -30}, {-2, -30}, {8, -20}, {8, 20}, {-2, 30}, {-8, 30}}), Rectangle(origin = {0, -27}, fillColor = {255, 85, 0}, fillPattern = FillPattern.Solid, extent = {{-40, 3}, {40, -3}}), Polygon(origin = {0, -42}, rotation = 90, fillColor = {255, 85, 0}, fillPattern = FillPattern.Solid, points = {{-8, 30}, {-8, -30}, {-2, -30}, {8, -20}, {8, 20}, {-2, 30}, {-8, 30}}), Rectangle(origin = {2, -47}, fillColor = {255, 85, 0}, fillPattern = FillPattern.Solid, extent = {{-52, 3}, {50, -3}}), Text(origin = {4, 6}, extent = {{20, 62}, {-30, -72}}, textString = "TEST"), Rectangle(origin = {-38, -1}, fillColor = {255, 85, 0}, fillPattern = FillPattern.Solid, extent = {{-40, 5}, {-26, -3}})}),
+    Documentation(info = "<html><head></head><body><p class=\"MsoNormal\" style=\"font-size: 12px;\"><font face=\"MS Shell Dlg 2, sans-serif\" size=\"6\"><b>Test Motor</b></font></p><p class=\"MsoNormal\" style=\"font-size: 12px;\"><font size=\"4\"><br>Der Test Motor kann für Modelle, in denen die genaue Auslegung des Motors keine Rolle spielt sowohl mit Kraft und Weg Konnektoren als auch mit Drehmoment und Drehzahl Konnektoren verbunden werden und es kann beispielsweise ein Weg s vorgegeben werden.<br></font></p><p class=\"MsoNormal\" style=\"font-size: 12px;\"><font size=\"4\"><br></font></p></body></html>"));
+end Test_Motor;
