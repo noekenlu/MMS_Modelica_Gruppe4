@@ -7184,7 +7184,7 @@ EN-GB\"><o:p></o:p></span></p><p class=\"MsoNormal\">
             Placement(visible = true, transformation(origin = {58, 40}, extent = {{-22, -22}, {22, 22}}, rotation = 0)));
           Flaschenzug.Modelle.Fixpunkt Fixpunkt1 annotation(
             Placement(visible = true, transformation(origin = {58, 80}, extent = {{-18, -18}, {18, 18}}, rotation = 0)));
-          Flaschenzug.Modelle.Masse masse1(m = 10) annotation(
+          Flaschenzug.Modelle.Masse masse1(m = 5) annotation(
             Placement(visible = true, transformation(origin = {72, -56}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
           Flaschenzug.Modelle.Getriebe getriebe1 annotation(
             Placement(visible = true, transformation(origin = {-22, -20}, extent = {{-22, -22}, {22, 22}}, rotation = 0)));
