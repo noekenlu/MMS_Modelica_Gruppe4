@@ -2155,7 +2155,8 @@ EN-GB\">Parameter:<o:p></o:p></span></p><p class=\"MsoNormal\" style=\"font-size
       Modelica.SIunits.Frequency f = port_Drehmoment_und_Drehzahl1.n "Drehzahl in 1/s";
      //Parameter________________________________________________________________
       parameter Real D = 0.318 "Durchmesser Seilwinde";
-       parameter Real Zustand = 1  "1: linear, 2: konstant, 3: beschraenkt, 4: beschleunigt, 5: sinus";
+      parameter Real Richtung = 1 "1: vorwärts, -1: rückwärts";
+       parameter Real Zustand = 1  "1: linear, 2: konstant, 3: beschränkt, 4: beschleunigt, 5: sinus";
       //Gleichungen________________________________________________________________
     equation
     
@@ -2163,25 +2164,21 @@ EN-GB\">Parameter:<o:p></o:p></span></p><p class=\"MsoNormal\" style=\"font-size
       der(v) = a;
       der(Port_Motor.s) = v;
       f = v / (pi * D);
-//  Port_Motor.s = sin(time);
-//  Port_Motor.s=12;
-//  Port_Motor.s= 0.68*atan(2*time);
-//  Port_Motor.s = 3*(sin(0.1*time))^2;
-//  Port_Motor.s = 1 * time;
+
       if Zustand == 1 then
-       Port_Motor.s = 1 * time;
+       Port_Motor.s = 1 * time*Richtung;
        
        elseif Zustand == 2 then
-       Port_Motor.s=12;
+       Port_Motor.s=0;
        
        elseif Zustand == 3 then
-       Port_Motor.s= 0.68*atan(2*time);
+       Port_Motor.s= 0.68*atan(2*time)*Richtung;
        
        elseif Zustand == 4 then
-       v = 1*time;
+       v = 1*time*Richtung;
        
        elseif Zustand == 5 then
-       Port_Motor.s = sin(time);
+       Port_Motor.s = sin(time)*Richtung;
        
        end if;
 //Annotation________________________________________________________________
@@ -2826,28 +2823,28 @@ EN-GB\">Parameter:<o:p></o:p></span></p><p class=\"MsoNormal\" style=\"font-size
 <style>
  /* Style Definitions */
  table.MsoNormalTable
-	{mso-style-name:\"Normale Tabelle\";
-	mso-tstyle-rowband-size:0;
-	mso-tstyle-colband-size:0;
-	mso-style-noshow:yes;
-	mso-style-priority:99;
-	mso-style-parent:\"\";
-	mso-padding-alt:0cm 5.4pt 0cm 5.4pt;
-	mso-para-margin-top:0cm;
-	mso-para-margin-right:0cm;
-	mso-para-margin-bottom:8.0pt;
-	mso-para-margin-left:0cm;
-	line-height:107%;
-	mso-pagination:widow-orphan;
-	font-size:11.0pt;
-	font-family:\"Calibri\",sans-serif;
-	mso-ascii-font-family:Calibri;
-	mso-ascii-theme-font:minor-latin;
-	mso-hansi-font-family:Calibri;
-	mso-hansi-theme-font:minor-latin;
-	mso-bidi-font-family:Arial;
-	mso-bidi-theme-font:minor-bidi;
-	mso-fareast-language:EN-US;}
+ {mso-style-name:\"Normale Tabelle\";
+ mso-tstyle-rowband-size:0;
+ mso-tstyle-colband-size:0;
+ mso-style-noshow:yes;
+ mso-style-priority:99;
+ mso-style-parent:\"\";
+ mso-padding-alt:0cm 5.4pt 0cm 5.4pt;
+ mso-para-margin-top:0cm;
+ mso-para-margin-right:0cm;
+ mso-para-margin-bottom:8.0pt;
+ mso-para-margin-left:0cm;
+ line-height:107%;
+ mso-pagination:widow-orphan;
+ font-size:11.0pt;
+ font-family:\"Calibri\",sans-serif;
+ mso-ascii-font-family:Calibri;
+ mso-ascii-theme-font:minor-latin;
+ mso-hansi-font-family:Calibri;
+ mso-hansi-theme-font:minor-latin;
+ mso-bidi-font-family:Arial;
+ mso-bidi-theme-font:minor-bidi;
+ mso-fareast-language:EN-US;}
 </style>
 <![endif]-->
 
@@ -4744,7 +4741,7 @@ EN-GB\">Parameter:<o:p></o:p></span></p><table class=\"MsoNormalTable\" border=\
      //Gleichungen________________________________________________________________
     equation
       Port_Zug.F = Port_Last.F / n;
-      Port_Last.s = Port_Zug.s / n + port_fix.s;
+      Port_Last.s = -Port_Zug.s / n + port_fix.s;
       port_fix.F = Port_Zug.F + Port_Last.F;
 //Annotation________________________________________________________________
       annotation(
@@ -7184,7 +7181,7 @@ EN-GB\"><o:p></o:p></span></p><p class=\"MsoNormal\">
             Placement(visible = true, transformation(origin = {58, 40}, extent = {{-22, -22}, {22, 22}}, rotation = 0)));
           Flaschenzug.Modelle.Fixpunkt Fixpunkt1 annotation(
             Placement(visible = true, transformation(origin = {58, 80}, extent = {{-18, -18}, {18, 18}}, rotation = 0)));
-          Flaschenzug.Modelle.Masse masse1(m = 5) annotation(
+          Flaschenzug.Modelle.Masse masse1(m = 10) annotation(
             Placement(visible = true, transformation(origin = {72, -56}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
           Flaschenzug.Modelle.Getriebe getriebe1 annotation(
             Placement(visible = true, transformation(origin = {-22, -20}, extent = {{-22, -22}, {22, 22}}, rotation = 0)));
@@ -7353,7 +7350,7 @@ EN-GB\"><o:p></o:p></span></p><p class=\"MsoNormal\">
             Placement(visible = true, transformation(origin = {14, -14}, extent = {{-16, -16}, {16, 16}}, rotation = 0)));
           Modelle.Fixpunkt Fixpunkt1 annotation(
             Placement(visible = true, transformation(origin = {-1, 81}, extent = {{-25, -25}, {25, 25}}, rotation = 0)));
-          Modelle.Test_Motor test_Motor1 annotation(
+          Modelle.Test_Motor test_Motor1(Richtung = 1, Zustand = 4)  annotation(
             Placement(visible = true, transformation(origin = {-60, 0}, extent = {{-22, -22}, {22, 22}}, rotation = 0)));
           Modelle.Masse masse2(m = 10) annotation(
             Placement(visible = true, transformation(origin = {0, -48}, extent = {{-16, -16}, {16, 16}}, rotation = 0)));
@@ -7475,6 +7472,74 @@ EN-GB\"><o:p></o:p></span></p><p class=\"MsoNormal\">
             Diagram,
   Documentation(info = "<html><head></head><body><span style=\"font-size: 12px;\">In diesem Beispiel wird ein Testmotor an zwei Rollen vom Typ \"Role oben\" und zwei vom Typ \"Rolle unten\" angeschlossen. Am oben angeordneten Block Rolle oben ist ein Fixpunkt und am unten angeordneten Block \"Rolle unten\" ist eine Masse verbunden.&nbsp;</span><br style=\"font-size: 12px;\"><span style=\"font-size: 12px;\"><br>Die Rollen fungieren als Flaschenzug.</span></body></html>"));
         end Test_Vier_Rollen;
+
+      model Test_Rollensystem_2
+        Flaschenzug.Modelle.Masse masse1 annotation(
+          Placement(visible = true, transformation(origin = {28, -61}, extent = {{-17, -17}, {17, 17}}, rotation = 0)));
+        Flaschenzug.Modelle.Rollensystem rollensystem1(n = 1) annotation(
+          Placement(visible = true, transformation(origin = {28, -13}, extent = {{-21, -21}, {21, 21}}, rotation = 0)));
+        Flaschenzug.Modelle.Fixpunkt Fixpunkt1 annotation(
+          Placement(visible = true, transformation(origin = {18, 72}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
+        Flaschenzug.Modelle.Test_Motor test_Motor1 annotation(
+          Placement(visible = true, transformation(origin = {-65, -13}, extent = {{-23, -23}, {23, 23}}, rotation = 0)));
+        Flaschenzug.Modelle.Test_Motor test_Motor2(Richtung = -1, Zustand = 1) annotation(
+          Placement(visible = true, transformation(origin = {-65, 11}, extent = {{-23, -23}, {23, 23}}, rotation = 0)));
+        Flaschenzug.Modelle.Rolle_oben rolle_oben1 annotation(
+          Placement(visible = true, transformation(origin = {18, 36}, extent = {{-16, -16}, {16, 16}}, rotation = 0)));
+      equation
+        connect(rollensystem1.Port_Last, masse1.PortMasse) annotation(
+          Line(points = {{28, -32}, {28, -47}}, color = {255, 0, 0}));
+        connect(rolle_oben1.port_oben, Fixpunkt1.portFix) annotation(
+          Line(points = {{18, 50}, {18, 70}}, color = {255, 0, 0}));
+        connect(test_Motor2.Port_Motor, rolle_oben1.port_links) annotation(
+          Line(points = {{-45, 11}, {8, 11}, {8, 26}}, color = {255, 0, 0}));
+        connect(rollensystem1.port_fix, rolle_oben1.port_rechts) annotation(
+          Line(points = {{28, 6}, {28, 6}, {28, 26}, {28, 26}}, color = {255, 0, 0}));
+        connect(test_Motor1.Port_Motor, rollensystem1.Port_Zug) annotation(
+          Line(points = {{-45, -13}, {9, -13}}, color = {255, 0, 0}));
+        annotation(
+          __OpenModelica_simulationFlags(lv = "LOG_STATS", outputFormat = "mat", s = "dassl"),
+          experiment(StartTime = 0, StopTime = 10, Tolerance = 1e-06, Interval = 0.02),
+          Documentation(info = "<html><head></head><body><span style=\"font-size: 12px;\">In diesem Beispiel wird ein Testmotor, ein Getriebe und eine Seilwinde an einem Block Rollensystem angeschlossen. An dem Rollenssystem ist ein Fixpunkt und eine Masse verbunden.&nbsp;</span><br style=\"font-size: 12px;\"><span style=\"font-size: 12px;\">Das Rollensystem ist mit n=4 parametriert.</span></body></html>"));
+      end Test_Rollensystem_2;
+
+      model Test_Testmotor
+        Flaschenzug.Modelle.Masse masse1 annotation(
+          Placement(visible = true, transformation(origin = {72, -47}, extent = {{-17, -17}, {17, 17}}, rotation = 0)));
+        Flaschenzug.Modelle.Fixpunkt Fixpunkt1 annotation(
+          Placement(visible = true, transformation(origin = {62, 78}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
+        Flaschenzug.Modelle.Test_Motor test_Motor1(D = 0.1, Richtung = -1) annotation(
+          Placement(visible = true, transformation(origin = {23, -11}, extent = {{-23, -23}, {23, 23}}, rotation = 0)));
+        Flaschenzug.Modelle.Rolle_oben rolle_oben1 annotation(
+          Placement(visible = true, transformation(origin = {62, 36}, extent = {{-16, -16}, {16, 16}}, rotation = 0)));
+        Flaschenzug.Modelle.Seilwinde seilwinde1 annotation(
+          Placement(visible = true, transformation(origin = {-23, -9}, extent = {{21, -21}, {-21, 21}}, rotation = 0)));
+        Flaschenzug.Modelle.Rolle_oben rolle_oben2 annotation(
+          Placement(visible = true, transformation(origin = {-42, 42}, extent = {{-16, -16}, {16, 16}}, rotation = 0)));
+        Flaschenzug.Modelle.Fixpunkt fixpunkt1 annotation(
+          Placement(visible = true, transformation(origin = {-42, 78}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
+        Flaschenzug.Modelle.Masse masse2 annotation(
+          Placement(visible = true, transformation(origin = {-52, -45}, extent = {{-17, -17}, {17, 17}}, rotation = 0)));
+      equation
+        connect(masse1.PortMasse, rolle_oben1.port_rechts) annotation(
+          Line(points = {{72, -32}, {72, -32}, {72, 26}, {72, 26}}, color = {255, 0, 0}));
+        connect(rolle_oben1.port_oben, Fixpunkt1.portFix) annotation(
+          Line(points = {{62, 49.12}, {62, 76}}, color = {255, 0, 0}));
+        connect(test_Motor1.port_Drehmoment_und_Drehzahl1, seilwinde1.port_T_n) annotation(
+          Line(points = {{3, -11}, {-8, -11}, {-8, -12}}, color = {0, 85, 255}));
+        connect(test_Motor1.Port_Motor, rolle_oben1.port_links) annotation(
+          Line(points = {{43, -11}, {51.24, -11}, {51.24, 25}}, color = {255, 0, 0}));
+        connect(seilwinde1.port_F_s, rolle_oben2.port_rechts) annotation(
+          Line(points = {{-31, 7}, {-32, 7}, {-32, 32}}, color = {255, 0, 0}));
+        connect(rolle_oben2.port_oben, fixpunkt1.portFix) annotation(
+          Line(points = {{-42, 55}, {-42, 76}}, color = {255, 0, 0}));
+        connect(masse2.PortMasse, rolle_oben2.port_links) annotation(
+          Line(points = {{-52, -30}, {-52, -30}, {-52, 32}, {-52, 32}}, color = {255, 0, 0}));
+        annotation(
+          __OpenModelica_simulationFlags(lv = "LOG_STATS", outputFormat = "mat", s = "dassl"),
+          experiment(StartTime = 0, StopTime = 10, Tolerance = 1e-06, Interval = 0.02),
+          Documentation(info = "<html><head></head><body><span style=\"font-size: 12px;\">In diesem Beispiel wird ein Testmotor, ein Getriebe und eine Seilwinde an einem Block Rollensystem angeschlossen. An dem Rollenssystem ist ein Fixpunkt und eine Masse verbunden.&nbsp;</span><br style=\"font-size: 12px;\"><span style=\"font-size: 12px;\">Das Rollensystem ist mit n=4 parametriert.</span></body></html>"));
+      end Test_Testmotor;
         annotation(
           Icon(coordinateSystem(initialScale = 0.1), graphics = {Rectangle(origin = {4, -3}, lineColor = {255, 255, 255}, fillColor = {185, 185, 185}, fillPattern = FillPattern.HorizontalCylinder, extent = {{-104, 103}, {96, -97}}), Rectangle(origin = {0, 1}, extent = {{-80, 83}, {80, -83}}), Rectangle(origin = {-47, 7}, fillPattern = FillPattern.Solid, extent = {{-5, -51}, {3, 51}}), Rectangle(origin = {45, 7}, fillPattern = FillPattern.Solid, extent = {{-3, -51}, {5, 51}}), Polygon(origin = {22, 7}, fillPattern = FillPattern.Solid, points = {{20, 51}, {26, 45}, {-16, -25}, {-24, -23}, {-26, -25}, {20, 51}}), Polygon(origin = {-23, 7}, fillPattern = FillPattern.Solid, points = {{-27, 51}, {-21, 51}, {-27, 43}, {19, -25}, {29, -25}, {-21, 51}, {-27, 51}})}),
         Documentation(info = "<html><head></head><body><font size=\"6\"><b>Testmotor Beispiele</b></font><div><font size=\"6\"><b><br></b></font></div><div>Im Paket \"Testmotor_Beispiele\" sind Beispiele, integriert die einen einfachen Faktorenflaschenzug modellieren.</div><div>Es ist sowohl ein Beispiel mit Rollensystem als auch ein Flaschenzugsystem mit einzelnen Rollen (n = 1,2,3,4) implementiert.<br>Der Unterschied zu \"Einfache_Beispiele\" besteht in der Verwendung des Testmotors, anstatt des EMotors, Getriebe und Seilwinde.</div></body></html>"));
@@ -7567,7 +7632,8 @@ EN-GB\"><o:p></o:p></span></p><p class=\"MsoNormal\">
           annotation(
             experiment(StartTime = 0, StopTime = 10, Tolerance = 1e-6, Interval = 0.02),
             __OpenModelica_simulationFlags(lv = "LOG_STATS", outputFormat = "mat", s = "dassl"),
-            Diagram);
+            Diagram,
+  Documentation);
         end Test_Katapult;
   
         model Test_Doppelbefestigung_Masse
@@ -7719,7 +7785,7 @@ EN-GB\"><o:p></o:p></span></p><p class=\"MsoNormal\">
         end Test_Potenzflaschenzug;
   
         model Test_Umlenkung
-          Modelle.Test_Motor test_Motor1 annotation(
+          Modelle.Test_Motor test_Motor1(Zustand = 3)  annotation(
             Placement(visible = true, transformation(origin = {-60, -62}, extent = {{28, -28}, {-28, 28}}, rotation = -90)));
           Modelle.Fixpunkt Fixpunkt2 annotation(
             Placement(visible = true, transformation(origin = {-30, -76}, extent = {{16, 16}, {-16, -16}}, rotation = 0)));
@@ -7727,21 +7793,21 @@ EN-GB\"><o:p></o:p></span></p><p class=\"MsoNormal\">
             Placement(visible = true, transformation(origin = {40, -58}, extent = {{-14, -14}, {14, 14}}, rotation = 0)));
           Modelle.Fixpunkt Fixpunkt3 annotation(
             Placement(visible = true, transformation(origin = {-50, 78}, extent = {{-16, -16}, {16, 16}}, rotation = 0)));
-          Modelle.Rolle_unten rolle_unten1(m = 10) annotation(
+          Modelle.Rolle_unten rolle_unten1(m = 0) annotation(
             Placement(visible = true, transformation(origin = {-30, -34}, extent = {{-16, -16}, {16, 16}}, rotation = 0)));
           Modelle.Fixpunkt Fixpunkt1 annotation(
             Placement(visible = true, transformation(origin = {-10, 78}, extent = {{-16, -16}, {16, 16}}, rotation = 0)));
           Modelle.Fixpunkt Fixpunkt5 annotation(
             Placement(visible = true, transformation(origin = {30, 78}, extent = {{-16, -16}, {16, 16}}, rotation = 0)));
-          Modelle.Rolle_unten rolle_unten2(m = 10) annotation(
+          Modelle.Rolle_unten rolle_unten2 annotation(
             Placement(visible = true, transformation(origin = {10, -34}, extent = {{-16, -16}, {16, 16}}, rotation = 0)));
           Modelle.Fixpunkt Fixpunkt4 annotation(
             Placement(visible = true, transformation(origin = {10, -76}, extent = {{16, 16}, {-16, -16}}, rotation = 0)));
-          Modelle.Rolle_oben rolle_oben1(m = 10) annotation(
+          Modelle.Rolle_oben rolle_oben1(m = 0) annotation(
             Placement(visible = true, transformation(origin = {-10, 50}, extent = {{-16, -16}, {16, 16}}, rotation = 0)));
-          Modelle.Rolle_oben rolle_oben2(m = 10) annotation(
+          Modelle.Rolle_oben rolle_oben2(m = 0) annotation(
             Placement(visible = true, transformation(origin = {30, 50}, extent = {{-16, -16}, {16, 16}}, rotation = 0)));
-          Modelle.Rolle_oben rolle_oben3(m = 10) annotation(
+          Modelle.Rolle_oben rolle_oben3(m = 0) annotation(
             Placement(visible = true, transformation(origin = {-50, 50}, extent = {{-16, -16}, {16, 16}}, rotation = 0)));
         equation
           connect(Fixpunkt3.portFix, rolle_oben3.port_oben) annotation(
